@@ -1,0 +1,93 @@
+import React, { useState } from "react";
+import "../App.css";
+
+const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  // Handle Input Change
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Handle Submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(formData);
+
+    // Success Popup
+    setShowPopup(true);
+
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 3000);
+
+    // Clear Form
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
+  };
+
+  return (
+    <div className="contact-container">
+      <div className="contact-card">
+        <h1>Contact Us</h1>
+
+        <p className="contact-text">
+          Have questions about events or registrations? Feel free to contact us.
+        </p>
+
+        <form className="contact-form" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter Your Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter Your Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+
+          <textarea
+            name="message"
+            placeholder="Write Your Message"
+            rows="6"
+            value={formData.message}
+            onChange={handleChange}
+            required
+          ></textarea>
+
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+
+      {/* Popup */}
+      {showPopup && (
+        <div className="success-popup">
+          Message Sent Successfully ✅
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Contact;

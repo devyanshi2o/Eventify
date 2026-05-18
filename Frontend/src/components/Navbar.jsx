@@ -10,14 +10,16 @@ function Navbar() {
 
         <div>
           <h2>Eventify</h2>
-          <p>Bringing Events Together</p>
+          <p>Bringing Events Your Way</p>
         </div>
       </div>
 
       <div className="navLinks">
         <Link to="/">Home</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
+        {/* <Link to="/login">Login</Link>
+        <Link to="/register">Register</Link> */}
+        <Link to="/events">Events</Link>
+        <Link to="/contact">Contact Us</Link>
       </div>
 
     </nav>
