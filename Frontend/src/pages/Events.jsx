@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../App.css";
 
 const Events = () => {
@@ -60,11 +60,13 @@ const Events = () => {
     console.log(userData);
 
     try {
-      await fetch("http://localhost:5000/register-event", {
+      await fetch("http://localhost:5000/api/events/register-event", {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
         },
+
         body: JSON.stringify({
           ...userData,
           eventName: eventTitle,
@@ -78,7 +80,7 @@ const Events = () => {
         setShowPopup(false);
       }, 3000);
 
-      // Clear Only Current Form
+      // Clear Current Form
       setFormData({
         ...formData,
         [eventId]: {
@@ -116,9 +118,7 @@ const Events = () => {
             {/* Registration Form */}
             <form
               className="event-form"
-              onSubmit={(e) =>
-                handleRegister(e, event.id, event.title)
-              }
+              onSubmit={(e) => handleRegister(e, event.id, event.title)}
             >
               <input
                 type="text"

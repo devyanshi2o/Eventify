@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import API from "../api/axios";
 
 function Login() {
+
+  const navigate = useNavigate();
 
   // Form Data State
   const [formData, setFormData] = useState({
@@ -22,25 +25,59 @@ function Login() {
   };
 
   // Handle Login
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
+
     e.preventDefault();
 
-    // Show Data In Console
-    console.log(formData);
+    try {
 
-    // Show Popup
-    setShowPopup(true);
+      // API CALL
+      const response = await API.post(
+        "/users/login",
+        formData
+      );
 
-    // Hide Popup After 3 Seconds
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 3000);
+      console.log(response.data);
 
-    // Clear Form
-    setFormData({
-      email: "",
-      password: "",
-    });
+      // Save Token
+      localStorage.setItem(
+        "token",
+        response.data.data.token
+      );
+
+      // Save User Data
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.data.data)
+      );
+
+      // Show Popup
+      setShowPopup(true);
+
+      // Clear Form
+      setFormData({
+        email: "",
+        password: "",
+      });
+
+      // Redirect After 2 Seconds
+      setTimeout(() => {
+
+        setShowPopup(false);
+
+        navigate("/");
+
+      }, 2000);
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert(
+        error.response?.data?.message ||
+        "Login Failed"
+      );
+    }
   };
 
   return (
@@ -78,7 +115,10 @@ function Login() {
               required
             />
 
-            <button className="authBtn" type="submit">
+            <button
+              className="authBtn"
+              type="submit"
+            >
               Login
             </button>
 

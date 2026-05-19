@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import API from "../api/axios";
 
 function Register() {
-
   // Form Data State
   const [formData, setFormData] = useState({
     name: "",
@@ -23,26 +23,37 @@ function Register() {
   };
 
   // Handle Register
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    // Show Data In Console
-    console.log(formData);
+    try {
+      // API CALL
+      const response = await API.post("/users/register", formData);
 
-    // Show Popup
-    setShowPopup(true);
+      console.log(response.data);
 
-    // Hide Popup After 3 Seconds
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 3000);
+      // Show Popup
+      setShowPopup(true);
 
-    // Clear Form
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-    });
+      // Save Token
+      localStorage.setItem("token", response.data.data.token);
+
+      // Hide Popup After 3 Seconds
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 3000);
+
+      // Clear Form
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+      });
+    } catch (error) {
+      console.log(error);
+
+      alert(error.response?.data?.message || "Registration Failed");
+    }
   };
 
   return (
@@ -50,18 +61,15 @@ function Register() {
       <Navbar />
 
       <div className="authContainer">
-
         <div className="formBox">
-
           <h2>Create Account ✨</h2>
 
           <p className="formText">
-            Join Eventify and explore exciting campus
-            events, hackathons, workshops and festivals.
+            Join Eventify and explore exciting campus events, hackathons,
+            workshops and festivals.
           </p>
 
           <form onSubmit={handleRegister}>
-
             <input
               type="text"
               name="name"
@@ -92,23 +100,18 @@ function Register() {
             <button className="authBtn" type="submit">
               Register
             </button>
-
           </form>
 
           <p className="bottomText">
             Already have an account?
             <Link to="/login"> Login</Link>
           </p>
-
         </div>
-
       </div>
 
       {/* Success Popup */}
       {showPopup && (
-        <div className="success-popup">
-          Registration Successful ✅
-        </div>
+        <div className="success-popup">Registration Successful ✅</div>
       )}
     </>
   );

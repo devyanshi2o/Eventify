@@ -1,18 +1,18 @@
-// routes/eventRoutes.js
+// routes/contactRoutes.js
 
 const express = require("express");
 
 const router = express.Router();
 
 const {
-  registerEvent,
+  sendMessage,
 } = require(
-  "../controllers/eventController"
+  "../controllers/contactController"
 );
 
 router.post(
-  "/register-event",
-  registerEvent
+  "/send",
+  sendMessage
 );
 
 module.exports = router;

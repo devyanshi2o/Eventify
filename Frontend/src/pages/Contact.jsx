@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+// Contact.jsx
+
+import { useState } from "react";
 import "../App.css";
+import API from "../api/axios";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -19,24 +22,33 @@ const Contact = () => {
   };
 
   // Handle Submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
+    try {
+      // API CALL
+      const response = await API.post("/contact/send", formData);
 
-    // Success Popup
-    setShowPopup(true);
+      console.log(response.data);
 
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 3000);
+      // Success Popup
+      setShowPopup(true);
 
-    // Clear Form
-    setFormData({
-      name: "",
-      email: "",
-      message: "",
-    });
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 3000);
+
+      // Clear Form
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch (error) {
+      console.log(error);
+
+      alert(error.response?.data?.message || "Failed to Send Message");
+    }
   };
 
   return (
@@ -82,9 +94,7 @@ const Contact = () => {
 
       {/* Popup */}
       {showPopup && (
-        <div className="success-popup">
-          Message Sent Successfully ✅
-        </div>
+        <div className="success-popup">Message Sent Successfully ✅</div>
       )}
     </div>
   );

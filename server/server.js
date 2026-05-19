@@ -1,28 +1,53 @@
-const express = require("express");
-const mongoose=require("mongoose");
-const cors=require("cors");
-require("dotenv").config();
+const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('cors');
+const connectDB = require('./config/db.js');
+
+// Load environment variables
+dotenv.config();
+
+// Connect to database
+connectDB();
 
 const app = express();
+
+// Middleware
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-mongoose.connect(process.env.MONGO_URL)
-.then(()=> console.log("Mongoose Connected"))
-.catch((err)=>console.log(err));
+// Routes
+app.use('/api/users', require('./routes/userRoutes'));
 
-app.get("/",(req,res)=>{
-  res.send("Server Running");
+// Test route
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to Eventify API' });
 });
+// server.js
 
-const eventRoutes=require("./routes/eventRoutes");
-const userRoutes=require("./routes/userRoutes");
+const contactRoutes = require(
+  "./routes/contactRoutes"
+);
 
-app.use("/api/users",userRoutes);
-app.use("/api/events",eventRoutes);
+// ADD BELOW OTHER ROUTES
+app.use(
+  "/api/contact",
+  contactRoutes
+);
+// server.js
 
+const eventRoutes = require(
+  "./routes/eventRoutes"
+);
 
-const PORT=process.env.PORT || 5000;
+// ADD BELOW OTHER ROUTES
+app.use(
+  "/api/events",
+  eventRoutes
+);
+// Start server
+const PORT = process.env.PORT || 5000;
 
-app.listen(PORT,()=>{
+app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
