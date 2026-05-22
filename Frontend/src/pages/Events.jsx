@@ -28,7 +28,7 @@ const Events = () => {
 
     {
       id: 3,
-      title: "Hackathon 2026",
+      title: "GTU Hackathon 2026",
       date: "18 August 2026",
       venue: "Nirma University",
       host: "Code Masters",
