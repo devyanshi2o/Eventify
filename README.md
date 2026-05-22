@@ -51,37 +51,6 @@ server/
 ├── server.js
 └── package.json
 
-## Frontend
-src/
-│── components/
-│   ├── Navbar.js
-│   ├── Sidebar.js
-│   ├── EventCard.js
-│   └── DashboardCard.js
-│
-│── pages/
-│
-│   ├── Auth/
-│   │   ├── Login.js
-│   │   └── Register.js
-│   │
-│   ├── Dashboard/
-│   │   └── Dashboard.js
-│   │
-│   ├── Events/
-│   │   ├── CreateEvent.js
-│   │   ├── EventList.js
-│   │   ├── JoinEvent.js
-│   │   └── MyEvents.js
-│   │
-│   └── Profile/
-│       └── Profile.js
-│
-│── App.js
-│── Routes.js
-│── App.css
----
-
 ## Installation
 
 ### Clone Repository
