@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import eventHero from "../assets/eventHero.png";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 function Home() {
   return (
@@ -31,33 +32,7 @@ function Home() {
 
         <img src={eventHero} className="heroImage" alt="Event Illustration" />
       </div>
-
-      {/* FOOTER */}
-
-      <footer className="footer">
-        <div className="footerContent">
-          <h2>Eventify</h2>
-
-          <p>
-            Bringing campus events, hackathons, workshops and festivals
-            together.
-          </p>
-
-          {/* <div className="footerLinks">
-
-            <Link to="/">Home</Link>
-
-            <Link to="/login">Login</Link>
-
-            <Link to="/register">Register</Link>
-
-            <Link to="/contact">Contact</Link>
-
-          </div> */}
-
-          <p className="copyright">© 2026 Eventify. All Rights Reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }
