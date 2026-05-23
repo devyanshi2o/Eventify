@@ -12,7 +12,7 @@ function AdminNavbar() {
 
     localStorage.removeItem("adminToken");
 
-    navigate("/admin/login");
+    navigate("/login");
   };
 
   return (
