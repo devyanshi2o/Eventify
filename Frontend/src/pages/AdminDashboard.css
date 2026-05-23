@@ -1,0 +1,385 @@
+/* HERO SECTION */
+
+.dashboardHero {
+
+  width: 100%;
+
+  min-height: 90vh;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 140px 80px 80px;
+
+  gap: 60px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #f8f6ff,
+    #ece7ff
+  );
+}
+
+.heroLeft {
+
+  flex: 1;
+}
+
+.heroLeft h1 {
+
+  font-size: 68px;
+
+  color: #4c36b5;
+
+  line-height: 1.2;
+
+  margin-bottom: 25px;
+}
+
+.heroLeft p {
+
+  font-size: 20px;
+
+  color: #666;
+
+  line-height: 1.9;
+
+  max-width: 650px;
+
+  margin-bottom: 40px;
+}
+
+.heroLeft button {
+
+  padding: 16px 34px;
+
+  background: #6c4ce3;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 14px;
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.heroLeft button:hover {
+
+  background: #5637cf;
+
+  transform: translateY(-4px);
+}
+
+.heroRight {
+
+  flex: 1;
+
+  display: flex;
+
+  justify-content: center;
+}
+
+.heroRight img {
+
+  width: 100%;
+
+  max-width: 650px;
+
+  animation:
+  floatHero 4s ease-in-out infinite;
+}
+
+@keyframes floatHero {
+
+  50% {
+
+    transform:
+    translateY(-15px);
+  }
+}
+
+
+/* ADMIN DASHBOARD */
+
+.adminDashboard {
+
+  width: 100%;
+
+  padding: 40px 50px;
+
+  min-height: 100vh;
+
+  overflow-x: hidden;
+}
+
+.dashboardTop {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 50px;
+}
+
+.dashboardTop h1 {
+
+  color: #4c36b5;
+
+  font-size: 52px;
+}
+
+.dashboardTop button {
+
+  padding: 14px 28px;
+
+  border: none;
+
+  background: #6c4ce3;
+
+  color: white;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  font-size: 17px;
+
+  font-weight: 600;
+
+  transition: 0.3s;
+}
+
+.dashboardTop button:hover {
+
+  background: #5637cf;
+}
+
+
+/* EVENTS GRID */
+
+.adminEventsContainer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+/* EVENT CARD */
+
+.adminEventCard {
+  width: 70%;
+  margin-top: 20px;
+  background: white;
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow:
+  0 8px 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 500px;
+  transition: 0.3s;
+}
+
+.adminEventCard:hover {
+
+  transform: translateY(-5px);
+}
+
+
+/* EVENT INFO */
+
+.eventInfo {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+.eventInfo h2 {
+
+  color: #18134b;
+
+  font-size: 38px;
+
+  line-height: 1.2;
+
+  margin-bottom: 10px;
+
+  word-break: break-word;
+}
+
+.eventInfo p {
+
+  color: #666;
+
+  font-size: 18px;
+
+  line-height: 1.6;
+
+  word-break: break-word;
+}
+
+
+/* ACTION BUTTONS */
+
+.eventActions {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 20px;
+
+  margin-top: 35px;
+}
+
+.eventActions a {
+
+  text-decoration: none;
+}
+
+.editBtn,
+.deleteBtn {
+
+  width: 170px;
+
+  padding: 14px 0;
+
+  border: none;
+
+  border-radius: 14px;
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  color: white;
+
+  transition: 0.3s;
+}
+
+.editBtn {
+
+  background: #6c4df6;
+}
+
+.deleteBtn {
+
+  background: #ef476f;
+}
+
+.editBtn:hover {
+
+  background: #5637cf;
+
+  transform: translateY(-2px);
+}
+
+.deleteBtn:hover {
+
+  background: #d9375f;
+
+  transform: translateY(-2px);
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+  .adminEventsContainer {
+
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 950px) {
+
+  .dashboardHero {
+
+    flex-direction: column;
+
+    text-align: center;
+
+    padding: 140px 30px 70px;
+  }
+
+  .heroLeft h1 {
+
+    font-size: 44px;
+  }
+
+  .heroLeft p {
+
+    font-size: 18px;
+  }
+
+  .heroRight img {
+
+    max-width: 420px;
+  }
+
+  .adminDashboard {
+
+    padding: 30px 20px;
+  }
+
+  .dashboardTop {
+
+    flex-direction: column;
+
+    gap: 20px;
+  }
+
+  .dashboardTop h1 {
+
+    font-size: 38px;
+  }
+
+  .adminEventCard {
+
+    min-height: auto;
+  }
+
+  .eventInfo h2 {
+
+    font-size: 30px;
+  }
+
+  .eventInfo p {
+
+    font-size: 17px;
+  }
+
+  .eventActions {
+
+    flex-direction: column;
+
+    align-items: center;
+  }
+
+  .editBtn,
+  .deleteBtn {
+
+    width: 100%;
+  }
+}

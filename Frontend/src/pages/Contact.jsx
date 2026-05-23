@@ -3,6 +3,7 @@
 import { useState } from "react";
 import "../App.css";
 import API from "../api/axios";
+import Navbar from "../components/Navbar";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -52,6 +53,8 @@ const Contact = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="contact-container">
       <div className="contact-card">
         <h1>Contact Us</h1>
@@ -97,6 +100,7 @@ const Contact = () => {
         <div className="success-popup">Message Sent Successfully ✅</div>
       )}
     </div>
+    </>
   );
 };
 

@@ -1,17 +1,31 @@
 import {
+
   BrowserRouter,
+
   Routes,
-  Route
+
+  Route,
+
 } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+
 import Events from "./pages/Events";
+
+import Login from "./pages/Login";
+
+import Register from "./pages/Register";
+
 import Contact from "./pages/Contact";
-import Logout from "./components/Logout";
+
+import AdminDashboard from "./pages/AdminDashboard";
+
+import AddEvent from "./pages/AddEvent";
+
+import EditEvent from "./pages/EditEvent";
+
+import AdminLogin from "./pages/AdminLogin";
+
 
 function App() {
 
@@ -19,14 +33,16 @@ function App() {
 
     <BrowserRouter>
 
-      {/* GLOBAL NAVBAR */}
-      <Navbar />
-
       <Routes>
 
         <Route
           path="/"
           element={<Home />}
+        />
+
+        <Route
+          path="/events"
+          element={<Events />}
         />
 
         <Route
@@ -40,18 +56,28 @@ function App() {
         />
 
         <Route
-          path="/events"
-          element={<Events />}
-        />
-
-        <Route
           path="/contact"
           element={<Contact />}
         />
 
         <Route
-          path="/logout"
-          element={<Logout />}
+          path="/admin/dashboard"
+          element={<AdminDashboard />}
+        />
+
+        <Route
+          path="/admin/add-event"
+          element={<AddEvent />}
+        />
+
+        <Route
+          path="/admin/edit-event/:id"
+          element={<EditEvent />}
+        />
+
+        <Route
+          path="/admin-login"
+          element={<AdminLogin />}
         />
 
       </Routes>

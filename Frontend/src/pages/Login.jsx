@@ -31,43 +31,39 @@ function Login() {
 
     try {
 
-      // API CALL
       const response = await API.post(
         "/users/login",
         formData
       );
 
-      console.log(response.data);
+      const data = response.data;
 
-      // Save Token
-      localStorage.setItem(
-        "token",
-        response.data.data.token
-      );
+      console.log(data);
 
-      // Save User Data
-      localStorage.setItem(
-        "user",
-        JSON.stringify(response.data.data)
-      );
+      if (data.success) {
 
-      // Show Popup
-      setShowPopup(true);
+        localStorage.setItem(
+          "token",
+          data.data.token
+        );
 
-      // Clear Form
-      setFormData({
-        email: "",
-        password: "",
-      });
+        localStorage.setItem(
+          "user",
+          JSON.stringify(data.data)
+        );
 
-      // Redirect After 2 Seconds
-      setTimeout(() => {
+        setShowPopup(true);
 
-        setShowPopup(false);
+        setTimeout(() => {
 
-        navigate("/");
+          navigate("/");
 
-      }, 2000);
+        }, 1500);
+
+      } else {
+
+        alert(data.message);
+      }
 
     } catch (error) {
 
