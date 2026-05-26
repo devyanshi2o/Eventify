@@ -8,7 +8,6 @@ import logo from "../assets/Logo3.png";
 
 import "../App.css";
 
-
 function AdminLogin() {
 
   const navigate = useNavigate();
@@ -22,9 +21,7 @@ function AdminLogin() {
       password: "",
     });
 
-
   // HANDLE CHANGE
-
   const handleChange = (e) => {
 
     setFormData({
@@ -36,9 +33,7 @@ function AdminLogin() {
     });
   };
 
-
   // HANDLE LOGIN
-
   const handleLogin = async (e) => {
 
     e.preventDefault();
@@ -46,7 +41,7 @@ function AdminLogin() {
     try {
 
       const response = await fetch(
-        "http://localhost:5000/api/admin/login",
+        "http://localhost:5000/api/users/login",
         {
           method: "POST",
 
@@ -62,23 +57,36 @@ function AdminLogin() {
       const data =
         await response.json();
 
+      console.log(data);
+
       if (response.ok) {
 
+        // SAVE TOKEN
         localStorage.setItem(
           "adminToken",
-          data.token
+          data.data.token
         );
 
+        // SAVE ADMIN DATA
         localStorage.setItem(
           "admin",
-          JSON.stringify(data.admin)
+          JSON.stringify(data.data)
         );
+
+        // OPTIONAL ADMIN CHECK
+        // if(data.data.role !== "admin"){
+        //   alert("Access Denied");
+        //   return;
+        // }
 
         navigate("/admin/dashboard");
 
       } else {
 
-        alert(data.message);
+        alert(
+          data.message ||
+          "Login Failed"
+        );
       }
 
     } catch (error) {
@@ -89,147 +97,134 @@ function AdminLogin() {
     }
   };
 
-
   return (
-        <> 
-    <div className="adminLoginPage">
+    <>
+      <div className="adminLoginPage">
 
-      <div className="adminLoginCard">
+        <div className="adminLoginCard">
 
-        {/* TITLE */}
+          {/* TITLE */}
+          <h1>
+            Admin Login
+          </h1>
 
-        <h1>
-          Admin Login
-        </h1>
+          <p className="adminSubText">
 
-        <p className="adminSubText">
+            Welcome Admin! Please login to
+            access dashboard.
 
-          Welcome Admin! Please login to
-          access dashboard.
+          </p>
 
-        </p>
+          {/* FORM */}
+          <form
+            className="adminLoginForm"
+            onSubmit={handleLogin}
+          >
 
+            {/* EMAIL */}
+            <div className="adminInputGroup">
 
-        {/* FORM */}
-
-        <form
-          className="adminLoginForm"
-          onSubmit={handleLogin}
-        >
-
-          {/* EMAIL */}
-
-          <div className="adminInputGroup">
-
-            <label>
-              Email
-            </label>
-
-            <input
-              type="email"
-
-              name="email"
-
-              placeholder="Enter admin email"
-
-              value={formData.email}
-
-              onChange={handleChange}
-
-              required
-            />
-
-          </div>
-
-
-          {/* PASSWORD */}
-
-          <div className="adminInputGroup">
-
-            <label>
-              Password
-            </label>
-
-            <div className="adminPasswordBox">
+              <label>
+                Email
+              </label>
 
               <input
-                type={
-                  showPassword
-                    ? "text"
-                    : "password"
-                }
+                type="email"
 
-                name="password"
+                name="email"
 
-                placeholder="Enter password"
+                placeholder="Enter admin email"
 
-                value={formData.password}
+                value={formData.email}
 
                 onChange={handleChange}
 
                 required
               />
 
-              <span
-                className="adminEyeIcon"
+            </div>
 
-                onClick={() =>
-                  setShowPassword(
-                    !showPassword
-                  )
-                }
-              >
+            {/* PASSWORD */}
+            <div className="adminInputGroup">
 
-                {
-                  showPassword
-                    ? <FaEyeSlash />
-                    : <FaEye />
-                }
+              <label>
+                Password
+              </label>
 
-              </span>
+              <div className="adminPasswordBox">
+
+                <input
+                  type={
+                    showPassword
+                      ? "text"
+                      : "password"
+                  }
+
+                  name="password"
+
+                  placeholder="Enter password"
+
+                  value={formData.password}
+
+                  onChange={handleChange}
+
+                  required
+                />
+
+                <span
+                  className="adminEyeIcon"
+
+                  onClick={() =>
+                    setShowPassword(
+                      !showPassword
+                    )
+                  }
+                >
+
+                  {
+                    showPassword
+                      ? <FaEyeSlash />
+                      : <FaEye />
+                  }
+
+                </span>
+
+              </div>
 
             </div>
 
-          </div>
+            {/* FORGOT */}
+            <p className="forgotAdmin">
 
+              Forgot Password?
 
-          {/* FORGOT */}
+            </p>
 
-          <p className="forgotAdmin">
+            {/* BUTTON */}
+            <button type="submit">
 
-            Forgot Password?
+              Login
+
+            </button>
+
+          </form>
+
+          {/* USER LOGIN */}
+          <p className="adminBottomText">
+
+            Not an admin?
+
+            <Link to="/login">
+
+              User Login
+
+            </Link>
 
           </p>
 
-
-          {/* BUTTON */}
-
-          <button type="submit">
-
-            Login
-
-          </button>
-
-        </form>
-
-
-        {/* USER LOGIN */}
-
-        <p className="adminBottomText">
-
-          Not an admin?
-
-          <Link to="/login">
-
-            User Login
-
-          </Link>
-
-        </p>
+        </div>
 
       </div>
-
-    </div>
     </>
   );
 }

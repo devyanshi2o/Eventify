@@ -4,7 +4,6 @@ const bcrypt = require("bcryptjs");
 
 const jwt = require("jsonwebtoken");
 
-
 // Generate JWT Token
 const generateToken = (id) => {
 
@@ -17,14 +16,13 @@ const generateToken = (id) => {
   );
 };
 
-
 // REGISTER USER
 const registerUser = async (req, res) => {
 
   try {
 
     const {
-      name,
+      username,
       email,
       password,
     } = req.body;
@@ -50,7 +48,7 @@ const registerUser = async (req, res) => {
 
     // Create User
     const user = await User.create({
-      name,
+      username,
       email,
       password: hashedPassword,
     });
@@ -60,7 +58,7 @@ const registerUser = async (req, res) => {
       message: "Registration Successful",
       data: {
         _id: user._id,
-        name: user.name,
+        username: user.username,
         email: user.email,
         token: generateToken(user._id),
       },
@@ -77,7 +75,6 @@ const registerUser = async (req, res) => {
   }
 };
 
-
 // LOGIN USER
 const loginUser = async (req, res) => {
 
@@ -88,8 +85,9 @@ const loginUser = async (req, res) => {
       password,
     } = req.body;
 
-    // Find User
-    const user = await User.findOne({ email });
+    // Find user
+    const user =
+      await User.findOne({ email });
 
     if (!user) {
 
@@ -119,7 +117,7 @@ const loginUser = async (req, res) => {
       message: "Login Successful",
       data: {
         _id: user._id,
-        name: user.name,
+        username: user.username,
         email: user.email,
         token: generateToken(user._id),
       },
@@ -135,7 +133,6 @@ const loginUser = async (req, res) => {
     });
   }
 };
-
 
 module.exports = {
   registerUser,

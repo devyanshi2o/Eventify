@@ -45,6 +45,13 @@ app.use(
   "/api/events",
   eventRoutes
 );
+const adminRoutes =
+  require("./routes/adminRoutes");
+
+app.use(
+  "/api/admin",
+  adminRoutes
+);
 // Start server
 const PORT = process.env.PORT || 5000;
 
