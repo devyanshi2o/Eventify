@@ -29,6 +29,10 @@ import AddEvent from "./pages/AddEvent";
 
 import EditEvent from "./pages/EditEvent";
 
+import EventsPage from "./pages/EventsPage";
+
+import Registrations from "./pages/Registrations";
+
 function App() {
 
   return (
@@ -90,6 +94,16 @@ function App() {
         <Route
           path="/admin/login"
           element={<AdminLogin />}
+        />
+
+        <Route
+          path="/admin/events"
+          element={<EventsPage />}
+        />
+
+        <Route
+          path="/admin/registrations"
+          element={<Registrations />}
         />
 
       </Routes>

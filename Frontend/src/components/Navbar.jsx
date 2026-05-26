@@ -7,32 +7,58 @@ import logo from "../assets/logo3.png";
 
 function Navbar() {
 
-  const navigate = useNavigate();
+  const navigate =
+    useNavigate();
 
-  // USER + ADMIN
+  // USER
 
-  const user = JSON.parse(
-    localStorage.getItem("user")
-  );
+  const user =
+    JSON.parse(
 
-  const admin = JSON.parse(
-    localStorage.getItem("admin")
-  );
+      localStorage.getItem(
+        "user"
+      )
+
+    );
+
+  // ADMIN TOKEN
+
+  const adminToken =
+
+    localStorage.getItem(
+      "adminToken"
+    );
+
 
   // LOGOUT
 
-  const handleLogout = () => {
+  const handleLogout =
+    () => {
 
-    localStorage.removeItem("user");
+    // USER
 
-    localStorage.removeItem("token");
+    localStorage.removeItem(
+      "user"
+    );
 
-    localStorage.removeItem("admin");
+    localStorage.removeItem(
+      "token"
+    );
 
-    localStorage.removeItem("adminToken");
+    // ADMIN
 
-    navigate("/login");
+    localStorage.removeItem(
+      "admin"
+    );
+
+    localStorage.removeItem(
+      "adminToken"
+    );
+
+    navigate("/");
+
   };
+
 
   return (
 
@@ -48,7 +74,9 @@ function Navbar() {
         />
 
         <h2>
+
           Eventify
+
         </h2>
 
       </div>
@@ -59,19 +87,27 @@ function Navbar() {
       <div className="navLinks">
 
         <Link to="/">
+
           Home
+
         </Link>
 
         <Link to="/events">
+
           Events
+
         </Link>
 
         <Link to="/about">
+
           About
+
         </Link>
 
         <Link to="/contact">
+
           Contact
+
         </Link>
 
       </div>
@@ -81,110 +117,160 @@ function Navbar() {
 
       <div className="navRight">
 
-        {/* USER WELCOME */}
+        {/* USER */}
 
         {
-          user && !admin && (
 
-            <p className="welcomeText">
+        user && !adminToken && (
 
-              Welcome, {user.name} 👋
+        <p
+        className=
+        "welcomeText"
+        >
 
-            </p>
+          Welcome,
+          {
+            user.username
+          }
 
-          )
+        </p>
+
+        )
+
         }
 
 
-        {/* ADMIN PANEL */}
+        {/* ADMIN */}
 
         {
-          admin && (
 
-            <>
+        adminToken && (
 
-              <p className="welcomeText">
+        <>
 
-                Admin Panel 👑
+          <p
+          className=
+          "welcomeText"
+          >
 
-              </p>
+            Admin Panel 👑
 
-              <Link
-                to="/admin/dashboard"
-                className="dashboardBtn"
-              >
+          </p>
 
-                Dashboard
 
-              </Link>
+          <Link
 
-            </>
+          to="/admin/dashboard"
 
-          )
+          className=
+          "dashboardBtn"
+
+          >
+
+            Dashboard
+
+          </Link>
+
+        </>
+
+        )
+
         }
 
 
-        {/* LOGIN BUTTONS */}
+        {/* LOGIN */}
 
         {
-          !user && !admin ? (
 
-            <div className="authButtons">
+        !user && !adminToken ?
 
-              <Link to="/login">
+        (
 
-                <button className="loginBtnNav">
+        <div
+        className=
+        "authButtons"
+        >
 
-                  Login
-
-                </button>
-
-              </Link>
-
-
-              <Link to="/register">
-
-                <button className="registerBtnNav">
-
-                  Register
-
-                </button>
-
-              </Link>
-
-
-              {/* ADMIN LOGIN */}
-
-              <Link to="/admin/login">
-
-                <button className="dashboardBtn">
-
-                  Admin
-
-                </button>
-
-              </Link>
-
-            </div>
-
-          ) : (
+          <Link
+          to="/login"
+          >
 
             <button
-              onClick={handleLogout}
-              className="logoutBtn"
+            className=
+            "loginBtnNav"
             >
 
-              Logout
+              Login
 
             </button>
 
-          )
+          </Link>
+
+
+          <Link
+          to="/register"
+          >
+
+            <button
+            className=
+            "registerBtnNav"
+            >
+
+              Register
+
+            </button>
+
+          </Link>
+
+
+          <Link
+          to="/admin/login"
+          >
+
+            <button
+            className=
+            "dashboardBtn"
+            >
+
+              Admin
+
+            </button>
+
+          </Link>
+
+        </div>
+
+        )
+
+        :
+
+        (
+
+        <button
+
+        onClick={
+          handleLogout
+        }
+
+        className=
+        "logoutBtn"
+
+        >
+
+          Logout
+
+        </button>
+
+        )
+
         }
 
       </div>
 
     </nav>
+
   );
+
 }
 
 export default Navbar;

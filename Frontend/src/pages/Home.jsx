@@ -181,7 +181,7 @@ function Home() {
 
                     Welcome,
                     <br />
-                    {user.name}
+                    {user.username}
 
                   </h1>
 

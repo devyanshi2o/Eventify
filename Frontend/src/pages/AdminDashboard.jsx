@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
-
-import AdminNavbar from "../components/AdminNavbar";
+import {
+  Link,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 
 import {
   getEvents,
@@ -11,113 +13,321 @@ import {
 
 import "./AdminDashboard.css";
 
+import bottomImage from "../assets/bottomimage.png";
+
 function AdminDashboard() {
 
+  const navigate =
+    useNavigate();
+
+  const location =
+    useLocation();
+
   const [events, setEvents] =
+    useState([]);
+
+  const [registrations, setRegistrations] =
+    useState([]);
+
+  const [users, setUsers] =
+    useState([]);
+
+  const [admins, setAdmins] =
     useState([]);
 
 
   // FETCH EVENTS
 
-  const fetchEvents = async () => {
+  const fetchEvents =
+    async () => {
 
-    try {
+      try {
 
-      const res =
-        await getEvents();
+        const res =
+          await getEvents();
 
-      setEvents(res.data);
+        setEvents(
+          res.data
+        );
 
-    } catch (error) {
+      } catch (error) {
 
-      console.log(error);
-    }
-  };
+        console.log(
+          error
+        );
+
+      }
+    };
+
+
+  // FETCH REGISTRATIONS
+
+  const fetchRegistrations =
+    async () => {
+
+      try {
+
+        const response =
+          await fetch(
+            "http://localhost:5000/api/events/registrations"
+          );
+
+        const data =
+          await response.json();
+
+        setRegistrations(
+          data.data || data
+        );
+
+      } catch (error) {
+
+        console.log(
+          error
+        );
+
+      }
+
+    };
+
+
+  // FETCH USERS
+
+  const fetchUsers =
+    async () => {
+
+      try {
+
+        const response =
+          await fetch(
+            "http://localhost:5000/api/users"
+          );
+
+        const data =
+          await response.json();
+
+        setUsers(
+          data.data || data
+        );
+
+      } catch (error) {
+
+        console.log(
+          error
+        );
+
+      }
+
+    };
+
+
+  // FETCH ADMINS
+
+  const fetchAdmins =
+    async () => {
+
+      try {
+
+        const response =
+          await fetch(
+            "http://localhost:5000/api/admins"
+          );
+
+        const data =
+          await response.json();
+
+        setAdmins(
+          data.data || data
+        );
+
+      } catch (error) {
+
+        console.log(
+          error
+        );
+
+      }
+
+    };
 
 
   useEffect(() => {
 
     fetchEvents();
 
+    fetchRegistrations();
+
+    fetchUsers();
+
+    fetchAdmins();
+
   }, []);
 
 
   // DELETE EVENT
 
-  const handleDelete = async (
-    id
-  ) => {
+  const handleDelete =
+    async (id) => {
 
-    const confirmDelete =
-      window.confirm(
-        "Are you sure you want to delete this event?"
-      );
+      const confirmDelete =
+        window.confirm(
+          "Delete this event?"
+        );
 
-    if (!confirmDelete) return;
+      if (
+        !confirmDelete
+      ) return;
 
-    try {
+      try {
 
-      await deleteEvent(id);
+        await deleteEvent(
+          id
+        );
 
-      fetchEvents();
+        fetchEvents();
 
-    } catch (error) {
+      } catch (error) {
 
-      console.log(error);
-    }
+        console.log(
+          error
+        );
+
+      }
+    };
+
+
+  // LOGOUT
+
+  const handleLogout = () => {
+
+    // Remove admin login only
+
+    localStorage.removeItem(
+      "adminToken"
+    );
+
+    // Redirect to home page
+
+    navigate(
+      "/"
+    );
+
   };
 
 
   return (
 
-    <>
+    <div className="dashboardLayout">
 
-      <AdminNavbar />
+      {/* SIDEBAR */}
 
+      <div className="sidebar">
 
-      {/* HERO SECTION */}
+        <h2 className="logo">
 
-      <div className="dashboardHero">
+          Eventify
 
-        <div className="heroLeft">
-
-          <h1>
-
-            Manage Your Events
-            Effortlessly.
-
-          </h1>
-
-          <p>
-
-            Create, organize and
-            manage all your campus
-            events from one powerful
-            admin dashboard. Track
-            registrations, update
-            event details and deliver
-            unforgettable experiences.
-
-          </p>
-
-          <Link to="/admin/add-event">
-
-            <button>
-
-              Create New Event
-
-            </button>
-
-          </Link>
-
-        </div>
+        </h2>
 
 
-        <div className="heroRight">
+        <ul className="sidebarMenu">
+
+          <li
+            className={
+              location.pathname ===
+                "/admin/dashboard"
+
+                ? "active"
+
+                : ""
+            }
+          >
+
+            <Link
+              to="/admin/dashboard"
+            >
+
+              Dashboard
+
+            </Link>
+
+          </li>
+
+
+          <li
+            className={
+              location.pathname ===
+                "/admin/events"
+
+                ? "active"
+
+                : ""
+            }
+          >
+
+            <Link
+              to="/admin/events"
+            >
+
+              Events
+
+            </Link>
+
+          </li>
+
+
+          <li
+            className={
+              location.pathname ===
+                "/admin/add-event"
+
+                ? "active"
+
+                : ""
+            }
+          >
+
+            <Link
+              to="/admin/add-event"
+            >
+
+              Create Event
+
+            </Link>
+
+          </li>
+
+
+          <li>
+
+            <Link
+              to="/admin/registrations"
+            >
+
+              Registrations
+
+            </Link>
+
+          </li>
+
+
+          <li
+            onClick={
+              handleLogout
+            }
+          >
+
+            Logout
+
+          </li>
+
+        </ul>
+
+        <div className="sidebarBottomImage">
 
           <img
-            src="/dashboardHero.png"
-            alt="Dashboard Hero"
+            src={bottomImage}
+            alt="Event Illustration"
+            className="sidebarImg"
           />
 
         </div>
@@ -125,92 +335,102 @@ function AdminDashboard() {
       </div>
 
 
-      {/* DASHBOARD */}
+      {/* MAIN CONTENT */}
 
-      <div className="adminDashboard">
+      <div className="dashboardContent">
 
-        {/* EVENT GRID */}
+        <h1>
 
-        <div className="adminEventsContainer">
+          Admin Dashboard
 
-          {
-            events.map((event) => (
-
-              <div
-                className="adminEventCard"
-                key={event._id}
-              >
-
-                {/* <img
-                  src={event.image}
-                  alt={event.title}
-                /> */}
+        </h1>
 
 
-                <div className="eventInfo">
+        <div className="overviewCards">
 
-                  <h2>
-                    {event.title}
-                  </h2>
+          <div className="overviewCard">
 
-                  <p>
-                    📅 {event.date}
-                  </p>
+            <h3>
 
-                  <p>
-                    ⏰ {event.time}
-                  </p>
+              Total Events
 
-                  <p>
-                    📍 {event.location}
-                  </p>
+            </h3>
 
-                  <p>
-                    📝 {event.description}
-                  </p>
-                </div>
+            <p>
 
-                <div className="eventActions">
+              {
+                events.length
+              }
 
-                  <Link
-                    to={`/admin/edit-event/${event._id}`}
-                  >
+            </p>
 
-                    <button className="editBtn">
-
-                      Edit
-
-                    </button>
-
-                  </Link>
+          </div>
 
 
-                  <button
-                    className="deleteBtn"
+          <div className="overviewCard">
 
-                    onClick={() =>
-                      handleDelete(
-                        event._id
-                      )
-                    }
-                  >
+            <h3>
 
-                    Delete
+              Registrations
 
-                  </button>
+            </h3>
 
-                </div>
+            <p>
 
-              </div>
-            ))
-          }
+              {
+                registrations.length
+              }
+
+            </p>
+
+          </div>
+
+
+          <div className="overviewCard">
+
+            <h3>
+
+              Users
+
+            </h3>
+
+            <p>
+
+              {
+                users.length
+              }
+
+            </p>
+
+          </div>
+
+
+          <div className="overviewCard">
+
+            <h3>
+
+              Admins
+
+            </h3>
+
+            <p>
+
+              {
+                admins.length
+              }
+
+            </p>
+
+          </div>
 
         </div>
 
       </div>
 
-    </>
+    </div>
+
   );
+
 }
 
 export default AdminDashboard;

@@ -7,8 +7,6 @@ import {
 
 import axios from "axios";
 
-import AdminNavbar from "../components/AdminNavbar";
-
 import {
   updateEvent
 } from "../services/eventService";
