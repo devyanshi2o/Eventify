@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import heroBg from "../assets/heroimage.png";
 
+import Footer from "../components/Footer";
 import {
   FaCalendarAlt,
   FaTicketAlt,
@@ -445,6 +446,8 @@ function Home() {
         </div>
 
       </section>
+
+      <Footer />
 
     </>
   );

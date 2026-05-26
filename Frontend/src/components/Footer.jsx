@@ -25,6 +25,7 @@ function Footer() {
                 <a href="/events">Events</a>
                 <a href="/login">Login</a>
                 <a href="/register">Register</a>
+                <a href="/admin/login">Admin Login</a>
         </div>
 
         <div className="footerSection">

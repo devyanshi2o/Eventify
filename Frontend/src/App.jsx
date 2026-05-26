@@ -20,14 +20,13 @@ import Contact from "./pages/Contact";
 
 import About from "./pages/About";
 
+import AdminLogin from "./pages/AdminLogin";
+
 import AdminDashboard from "./pages/AdminDashboard";
 
 import AddEvent from "./pages/AddEvent";
 
 import EditEvent from "./pages/EditEvent";
-
-import AdminLogin from "./pages/AdminLogin";
-
 
 function App() {
 
@@ -88,7 +87,7 @@ function App() {
         />
 
         <Route
-          path="/admin-login"
+          path="/admin/login"
           element={<AdminLogin />}
         />
 

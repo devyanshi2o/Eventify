@@ -1,20 +1,29 @@
 import { useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+import logo from "../assets/Logo3.png";
 
 import "../App.css";
+
 
 function AdminLogin() {
 
   const navigate = useNavigate();
 
+  const [showPassword, setShowPassword] =
+    useState(false);
+
   const [formData, setFormData] =
     useState({
-
       email: "",
-
       password: "",
     });
+
+
+  // HANDLE CHANGE
 
   const handleChange = (e) => {
 
@@ -27,15 +36,17 @@ function AdminLogin() {
     });
   };
 
-  const handleSubmit = async (e) => {
+
+  // HANDLE LOGIN
+
+  const handleLogin = async (e) => {
 
     e.preventDefault();
 
     try {
 
-      const res = await fetch(
-        "http://localhost:5000/api/users/login",
-
+      const response = await fetch(
+        "http://localhost:5000/api/admin/login",
         {
           method: "POST",
 
@@ -44,97 +55,156 @@ function AdminLogin() {
               "application/json",
           },
 
-          body: JSON.stringify(
-            formData
-          ),
+          body: JSON.stringify(formData),
         }
       );
 
       const data =
-        await res.json();
+        await response.json();
 
-      if (!data.success) {
+      if (response.ok) {
 
-        alert(data.message);
-
-        return;
-      }
-
-      // ADMIN CHECK
-      if (
-        data.data.email !==
-        "admin@gmail.com"
-      ) {
-
-        alert(
-          "Not Authorized As Admin"
+        localStorage.setItem(
+          "adminToken",
+          data.token
         );
 
-        return;
+        localStorage.setItem(
+          "admin",
+          JSON.stringify(data.admin)
+        );
+
+        navigate("/admin/dashboard");
+
+      } else {
+
+        alert(data.message);
       }
-
-      // SAVE TOKEN
-      localStorage.setItem(
-        "adminToken",
-
-        data.data.token
-      );
-
-      navigate(
-        "/admin/dashboard"
-      );
 
     } catch (error) {
 
       console.log(error);
+
+      alert("Admin Login Failed");
     }
   };
 
+
   return (
+        <> 
+    <div className="adminLoginPage">
 
-    <div className="authContainer">
+      <div className="adminLoginCard">
 
-      <div className="formBox">
+        {/* TITLE */}
 
-        <h2>Admin Login</h2>
+        <h1>
+          Admin Login
+        </h1>
+
+        <p className="adminSubText">
+
+          Welcome Admin! Please login to
+          access dashboard.
+
+        </p>
+
+
+        {/* FORM */}
 
         <form
-          onSubmit={handleSubmit}
+          className="adminLoginForm"
+          onSubmit={handleLogin}
         >
 
-          <input
-            type="email"
+          {/* EMAIL */}
 
-            name="email"
+          <div className="adminInputGroup">
 
-            placeholder="Enter Admin Email"
+            <label>
+              Email
+            </label>
 
-            value={formData.email}
+            <input
+              type="email"
 
-            onChange={handleChange}
+              name="email"
 
-            required
-          />
+              placeholder="Enter admin email"
 
-          <input
-            type="password"
+              value={formData.email}
 
-            name="password"
+              onChange={handleChange}
 
-            placeholder="Enter Password"
+              required
+            />
 
-            value={formData.password}
+          </div>
 
-            onChange={handleChange}
 
-            required
-          />
+          {/* PASSWORD */}
 
-          <button
-            className="authBtn"
+          <div className="adminInputGroup">
 
-            type="submit"
-          >
+            <label>
+              Password
+            </label>
+
+            <div className="adminPasswordBox">
+
+              <input
+                type={
+                  showPassword
+                    ? "text"
+                    : "password"
+                }
+
+                name="password"
+
+                placeholder="Enter password"
+
+                value={formData.password}
+
+                onChange={handleChange}
+
+                required
+              />
+
+              <span
+                className="adminEyeIcon"
+
+                onClick={() =>
+                  setShowPassword(
+                    !showPassword
+                  )
+                }
+              >
+
+                {
+                  showPassword
+                    ? <FaEyeSlash />
+                    : <FaEye />
+                }
+
+              </span>
+
+            </div>
+
+          </div>
+
+
+          {/* FORGOT */}
+
+          <p className="forgotAdmin">
+
+            Forgot Password?
+
+          </p>
+
+
+          {/* BUTTON */}
+
+          <button type="submit">
 
             Login
 
@@ -142,9 +212,25 @@ function AdminLogin() {
 
         </form>
 
+
+        {/* USER LOGIN */}
+
+        <p className="adminBottomText">
+
+          Not an admin?
+
+          <Link to="/login">
+
+            User Login
+
+          </Link>
+
+        </p>
+
       </div>
 
     </div>
+    </>
   );
 }
 

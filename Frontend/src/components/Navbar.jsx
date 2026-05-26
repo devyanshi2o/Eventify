@@ -9,22 +9,27 @@ function Navbar() {
 
   const navigate = useNavigate();
 
-  // GET USER
+  // USER + ADMIN
+
   const user = JSON.parse(
     localStorage.getItem("user")
   );
 
-  // TEMP ADMIN CHECK
-  const isAdmin =
-    user?.email ===
-    "admin@gmail.com";
+  const admin = JSON.parse(
+    localStorage.getItem("admin")
+  );
 
   // LOGOUT
+
   const handleLogout = () => {
 
     localStorage.removeItem("user");
 
     localStorage.removeItem("token");
+
+    localStorage.removeItem("admin");
+
+    localStorage.removeItem("adminToken");
 
     navigate("/login");
   };
@@ -76,49 +81,86 @@ function Navbar() {
 
       <div className="navRight">
 
+        {/* USER WELCOME */}
+
         {
-          user && !isAdmin && (
+          user && !admin && (
 
             <p className="welcomeText">
+
               Welcome, {user.name} 👋
+
             </p>
 
           )
         }
 
 
+        {/* ADMIN PANEL */}
+
         {
-          isAdmin && (
+          admin && (
 
             <>
+
+              <p className="welcomeText">
+
+                Admin Panel 👑
+
+              </p>
+
               <Link
                 to="/admin/dashboard"
                 className="dashboardBtn"
               >
+
                 Dashboard
+
               </Link>
+
             </>
+
           )
         }
 
 
+        {/* LOGIN BUTTONS */}
+
         {
-          !user ? (
+          !user && !admin ? (
 
             <div className="authButtons">
 
               <Link to="/login">
 
                 <button className="loginBtnNav">
+
                   Login
+
                 </button>
 
               </Link>
 
+
               <Link to="/register">
 
                 <button className="registerBtnNav">
+
                   Register
+
+                </button>
+
+              </Link>
+
+
+              {/* ADMIN LOGIN */}
+
+              <Link to="/admin/login">
+
+                <button className="dashboardBtn">
+
+                  Admin
+
                 </button>
 
               </Link>
