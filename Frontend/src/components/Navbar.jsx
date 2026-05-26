@@ -7,15 +7,14 @@ import logo from "../assets/logo3.png";
 
 function Navbar() {
 
-  const navigate =
-    useNavigate();
+  const navigate = useNavigate();
 
   // GET USER
   const user = JSON.parse(
     localStorage.getItem("user")
   );
 
-  // CHECK ADMIN
+  // TEMP ADMIN CHECK
   const isAdmin =
     user?.email ===
     "admin@gmail.com";
@@ -23,13 +22,9 @@ function Navbar() {
   // LOGOUT
   const handleLogout = () => {
 
-    localStorage.removeItem(
-      "user"
-    );
+    localStorage.removeItem("user");
 
-    localStorage.removeItem(
-      "token"
-    );
+    localStorage.removeItem("token");
 
     navigate("/login");
   };
@@ -38,7 +33,7 @@ function Navbar() {
 
     <nav className="navbar">
 
-      {/* LOGO SECTION */}
+      {/* LEFT */}
 
       <div className="logoSection">
 
@@ -47,21 +42,14 @@ function Navbar() {
           alt="Eventify Logo"
         />
 
-        <div>
-
-          <h2>Eventify</h2>
-
-          <p>
-            Bringing Events
-            Your Way
-          </p>
-
-        </div>
+        <h2>
+          Eventify
+        </h2>
 
       </div>
 
 
-      {/* NAV LINKS */}
+      {/* CENTER */}
 
       <div className="navLinks">
 
@@ -73,21 +61,40 @@ function Navbar() {
           Events
         </Link>
 
-        <Link to="/contact">
-          Contact Us
+        <Link to="/about">
+          About
         </Link>
 
+        <Link to="/contact">
+          Contact
+        </Link>
 
-        {/* ADMIN LINKS */}
+      </div>
+
+
+      {/* RIGHT */}
+
+      <div className="navRight">
+
+        {
+          user && !isAdmin && (
+
+            <p className="welcomeText">
+              Welcome, {user.name} 👋
+            </p>
+
+          )
+        }
+
 
         {
           isAdmin && (
-            <>
-              <Link to="/admin/add-event">
-                Add Event
-              </Link>
 
-              <Link to="/admin/dashboard">
+            <>
+              <Link
+                to="/admin/dashboard"
+                className="dashboardBtn"
+              >
                 Dashboard
               </Link>
             </>
@@ -95,34 +102,40 @@ function Navbar() {
         }
 
 
-        {/* LOGIN / LOGOUT */}
-
         {
           !user ? (
 
-            <>
+            <div className="authButtons">
+
               <Link to="/login">
-                Login
+
+                <button className="loginBtnNav">
+                  Login
+                </button>
+
               </Link>
 
               <Link to="/register">
-                Register
+
+                <button className="registerBtnNav">
+                  Register
+                </button>
+
               </Link>
-            </>
+
+            </div>
 
           ) : (
 
             <button
-              onClick={
-                handleLogout
-              }
-
+              onClick={handleLogout}
               className="logoutBtn"
             >
 
               Logout
 
             </button>
+
           )
         }
 

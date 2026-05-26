@@ -1,107 +1,201 @@
-// Contact.jsx
-
 import { useState } from "react";
+
 import "../App.css";
+
 import API from "../api/axios";
+
 import Navbar from "../components/Navbar";
 
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+import logo from "../assets/logo3.png";
 
-  const [showPopup, setShowPopup] = useState(false);
+function Contact() {
 
-  // Handle Input Change
+  // FORM DATA
+
+  const [formData, setFormData] =
+    useState({
+      name: "",
+      email: "",
+      message: "",
+    });
+
+
+  // POPUP
+
+  const [showPopup, setShowPopup] =
+    useState(false);
+
+
+  // HANDLE INPUT
+
   const handleChange = (e) => {
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]:
+      e.target.value,
     });
   };
 
-  // Handle Submit
+
+  // HANDLE SUBMIT
+
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     try {
-      // API CALL
-      const response = await API.post("/contact/send", formData);
+
+      const response =
+        await API.post(
+          "/contact/send",
+          formData
+        );
 
       console.log(response.data);
 
-      // Success Popup
+      // SHOW POPUP
+
       setShowPopup(true);
 
       setTimeout(() => {
+
         setShowPopup(false);
+
       }, 3000);
 
-      // Clear Form
+
+      // CLEAR FORM
+
       setFormData({
         name: "",
         email: "",
         message: "",
       });
+
     } catch (error) {
+
       console.log(error);
 
-      alert(error.response?.data?.message || "Failed to Send Message");
+      alert(
+        error.response?.data?.message ||
+        "Failed to Send Message"
+      );
     }
   };
 
+
   return (
     <>
-    <Navbar/>
-    <div className="contact-container">
-      <div className="contact-card">
-        <h1>Contact Us</h1>
+      <Navbar />
 
-        <p className="contact-text">
-          Have questions about events or registrations? Feel free to contact us.
-        </p>
+      <div className="contactContainer">
 
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Enter Your Name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
+        <div className="contactCard">
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter Your Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+          {/* TITLE */}
 
-          <textarea
-            name="message"
-            placeholder="Write Your Message"
-            rows="6"
-            value={formData.message}
-            onChange={handleChange}
-            required
-          ></textarea>
+          <h1>
+            Contact Us
+          </h1>
 
-          <button type="submit">Send Message</button>
-        </form>
+          <p className="contactText">
+
+            Have questions about events,
+            registrations or collaborations?
+            We'd love to hear from you.
+
+          </p>
+
+
+          {/* FORM */}
+
+          <form
+            className="contactForm"
+            onSubmit={handleSubmit}
+          >
+
+            <div className="inputGroup">
+
+              <label>
+                Full Name
+              </label>
+
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+
+            </div>
+
+
+            <div className="inputGroup">
+
+              <label>
+                Email
+              </label>
+
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+
+            </div>
+
+
+            <div className="inputGroup">
+
+              <label>
+                Message
+              </label>
+
+              <textarea
+                name="message"
+                placeholder="Write your message"
+                rows="6"
+                value={formData.message}
+                onChange={handleChange}
+                required
+              ></textarea>
+
+            </div>
+
+
+            <button type="submit">
+
+              Send Message
+
+            </button>
+
+          </form>
+
+        </div>
+
+
+        {/* SUCCESS POPUP */}
+
+        {
+          showPopup && (
+
+            <div className="success-popup">
+
+              Message Sent Successfully ✅
+
+            </div>
+          )
+        }
+
       </div>
-
-      {/* Popup */}
-      {showPopup && (
-        <div className="success-popup">Message Sent Successfully ✅</div>
-      )}
-    </div>
     </>
   );
-};
+}
 
 export default Contact;

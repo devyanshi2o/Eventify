@@ -16,6 +16,8 @@ function Logout() {
     localStorage.removeItem("user");
 
     // Redirect to Login Page
+    // // navigate("/", { replace: true });
+    // window.location.href = "/";
     navigate("/login");
 
   }, [navigate]);

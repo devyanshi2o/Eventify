@@ -4,6 +4,13 @@ import "../App.css";
 
 import Navbar from "../components/Navbar";
 
+import {
+  FaCalendarAlt,
+  FaClock,
+  FaMapMarkerAlt,
+  FaTag
+} from "react-icons/fa";
+
 function Events() {
 
   const [events, setEvents] =
@@ -17,6 +24,7 @@ function Events() {
 
 
   // FETCH EVENTS
+
   useEffect(() => {
 
     fetchEvents();
@@ -32,7 +40,8 @@ function Events() {
         "http://localhost:5000/api/events"
       );
 
-      const data = await res.json();
+      const data =
+        await res.json();
 
       setEvents(data.data || data);
 
@@ -43,7 +52,8 @@ function Events() {
   };
 
 
-  // HANDLE INPUT CHANGE
+  // HANDLE INPUT
+
   const handleChange = (
     e,
     eventId
@@ -64,7 +74,8 @@ function Events() {
   };
 
 
-  // HANDLE REGISTRATION
+  // REGISTER EVENT
+
   const handleRegister = async (
     e,
     eventId,
@@ -80,7 +91,6 @@ function Events() {
 
       await fetch(
         "http://localhost:5000/api/events/register-event",
-
         {
           method: "POST",
 
@@ -114,9 +124,7 @@ function Events() {
         [eventId]: {
 
           name: "",
-
           email: "",
-
           branch: "",
         },
       });
@@ -133,12 +141,27 @@ function Events() {
     <>
       <Navbar />
 
-      <div className="event-container">
+      <div className="eventPage">
+
+        <div className="eventHeading">
+
+          <h1>
+            Explore Campus Events
+          </h1>
+
+          <p>
+            Register for exciting hackathons,
+            workshops, sports and cultural events.
+          </p>
+
+        </div>
+
 
         <div className="events-grid">
 
           {
             Array.isArray(events) &&
+
             events.map((event) => (
 
               <div
@@ -146,40 +169,51 @@ function Events() {
                 key={event._id}
               >
 
-                <h1>
+                <div className="eventTop">
+
+                  <span className="eventBadge">
+                    {event.category}
+                  </span>
+
+                </div>
+
+
+                <h2>
                   {event.title}
-                </h1>
+                </h2>
 
-                <p>
-                  <strong>📅 Date:</strong>
-                  {" "}
-                  {event.date}
-                </p>
 
-                <p>
-                  <strong>⏰ Time:</strong>
-                  {" "}
-                  {event.time}
-                </p>
+                <div className="eventInfo">
 
-                <p>
-                  <strong>📍 Location:</strong>
-                  {" "}
-                  {event.location}
-                </p>
+                  <p>
+                    <FaCalendarAlt />
+                    {event.date}
+                  </p>
 
-                <p>
-                  <strong>🏷️ Category:</strong>
-                  {" "}
-                  {event.category}
-                </p>
+                  <p>
+                    <FaClock />
+                    {event.time}
+                  </p>
+
+                  <p>
+                    <FaMapMarkerAlt />
+                    {event.location}
+                  </p>
+
+                  <p>
+                    <FaTag />
+                    {event.category}
+                  </p>
+
+                </div>
+
 
                 <p className="event-description">
                   {event.description}
                 </p>
 
 
-                {/* REGISTRATION FORM */}
+                {/* FORM */}
 
                 <form
                   className="event-form"
@@ -198,7 +232,7 @@ function Events() {
 
                     name="name"
 
-                    placeholder="Enter Your Name"
+                    placeholder="Your Name"
 
                     value={
                       formData[event._id]
@@ -221,7 +255,7 @@ function Events() {
 
                     name="email"
 
-                    placeholder="Enter Your Email"
+                    placeholder="Your Email"
 
                     value={
                       formData[event._id]
@@ -244,7 +278,7 @@ function Events() {
 
                     name="branch"
 
-                    placeholder="Enter Your Branch"
+                    placeholder="Your Branch"
 
                     value={
                       formData[event._id]
@@ -264,7 +298,7 @@ function Events() {
 
                   <button type="submit">
 
-                    Register Event
+                    Register Now
 
                   </button>
 
@@ -277,15 +311,14 @@ function Events() {
         </div>
 
 
-        {/* SUCCESS POPUP */}
+        {/* POPUP */}
 
         {
           showPopup && (
 
             <div className="success-popup">
 
-              Event Registration
-              Successful ✅
+              Event Registered Successfully ✅
 
             </div>
           )
