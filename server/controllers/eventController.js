@@ -224,9 +224,40 @@ const deleteEvent = async (
 };
 
 
+
+// GET ALL REGISTRATIONS
+const getRegistrations = async (
+  req,
+  res
+) => {
+
+  try {
+
+    const registrations =
+      await EventRegistration.find()
+      .sort({
+        createdAt: -1,
+      });
+
+    res.status(200).json({
+      success: true,
+      data: registrations,
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
 module.exports = {
   registerEvent,
 
+  getRegistrations,
   createEvent,
 
   getEvents,

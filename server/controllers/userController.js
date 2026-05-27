@@ -133,8 +133,41 @@ const loginUser = async (req, res) => {
     });
   }
 };
+// GET TOTAL USERS
+const getUsers = async (
+  req,
+  res
+) => {
+
+  try {
+
+    const users =
+      await User.find();
+
+    res.status(200).json({
+
+      success: true,
+
+      data: users,
+
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+
+      success: false,
+
+      message: "Server Error",
+
+    });
+  }
+};
 
 module.exports = {
   registerUser,
   loginUser,
+  getUsers
 };
