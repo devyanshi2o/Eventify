@@ -1,65 +1,26 @@
 import {
   Link,
-  useNavigate,
 } from "react-router-dom";
 
 import logo from "../assets/logo3.png";
 
 function Navbar() {
 
-  const navigate =
-    useNavigate();
-
   // USER
 
-  const user =
-    JSON.parse(
-
-      localStorage.getItem(
-        "user"
-      )
-
-    );
-
-  // ADMIN TOKEN
-
-  const adminToken =
-
-    localStorage.getItem(
-      "adminToken"
-    );
-
+  const user = JSON.parse(
+    localStorage.getItem("user")
+  );
 
   // LOGOUT
 
-  const handleLogout =
-    () => {
+  const handleLogout = () => {
 
-      // USER
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
 
-      localStorage.removeItem(
-        "user"
-      );
-
-      localStorage.removeItem(
-        "token"
-      );
-
-      // ADMIN
-
-      localStorage.removeItem(
-        "admin"
-      );
-
-      localStorage.removeItem(
-        "adminToken"
-      );
-
-      // navigate("/");
-      window.location.href = "/";
-
-    };
-
+    window.location.href = "/";
+  };
 
   return (
 
@@ -75,22 +36,17 @@ function Navbar() {
         />
 
         <h2>
-
           Eventify
-
         </h2>
 
       </div>
-
 
       {/* CENTER */}
 
       <div className="navLinks">
 
         <Link to="/">
-
           Home
-
         </Link>
 
         {user && (
@@ -100,19 +56,14 @@ function Navbar() {
         )}
 
         <Link to="/about">
-
           About
-
         </Link>
 
         <Link to="/contact">
-
           Contact
-
         </Link>
 
       </div>
-
 
       {/* RIGHT */}
 
@@ -120,158 +71,56 @@ function Navbar() {
 
         {/* USER */}
 
-        {
+        {user && (
 
-          user && !adminToken && (
+          <p className="welcomeText">
 
-            <p
-              className=
-              "welcomeText"
-            >
+            Welcome, {user.username}
 
-              Welcome, 
-              {
-                user.username
-              }
+          </p>
 
-            </p>
+        )}
 
-          )
+        {/* LOGIN / REGISTER */}
 
-        }
+        {!user ? (
 
+          <div className="authButtons">
 
-        {/* ADMIN */}
+            <Link to="/login">
 
-        {
-
-          adminToken && (
-
-            <>
-
-              <p
-                className=
-                "welcomeText"
-              >
-
-                Admin Panel
-
-              </p>
-
-
-              <Link
-
-                to="/admin/dashboard"
-
-                className=
-                "dashboardBtn"
-
-              >
-
-                Dashboard
-
-              </Link>
-
-            </>
-
-          )
-
-        }
-
-
-        {/* LOGIN */}
-
-        {
-
-          !user && !adminToken ?
-
-            (
-
-              <div
-                className=
-                "authButtons"
-              >
-
-                <Link
-                  to="/login"
-                >
-
-                  <button
-                    className=
-                    "loginBtnNav"
-                  >
-
-                    Login
-
-                  </button>
-
-                </Link>
-
-
-                <Link
-                  to="/register"
-                >
-
-                  <button
-                    className=
-                    "registerBtnNav"
-                  >
-
-                    Register
-
-                  </button>
-
-                </Link>
-
-
-                <Link
-                  to="/admin/login"
-                >
-
-                  <button
-                    className=
-                    "dashboardBtn"
-                  >
-
-                    Admin
-
-                  </button>
-
-                </Link>
-
-              </div>
-
-            )
-
-            :
-
-            (
-
-              <button
-
-                onClick={
-                  handleLogout
-                }
-
-                className=
-                "logoutBtn"
-
-              >
-
-                Logout
-
+              <button className="loginBtnNav">
+                Login
               </button>
 
-            )
+            </Link>
 
-        }
+            <Link to="/register">
+
+              <button className="registerBtnNav">
+                Register
+              </button>
+
+            </Link>
+
+          </div>
+
+        ) : (
+
+          <button
+            onClick={handleLogout}
+            className="logoutBtn"
+          >
+            Logout
+          </button>
+
+        )}
 
       </div>
 
     </nav>
 
   );
-
 }
 
 export default Navbar;
