@@ -35,29 +35,30 @@ function Navbar() {
   const handleLogout =
     () => {
 
-    // USER
+      // USER
 
-    localStorage.removeItem(
-      "user"
-    );
+      localStorage.removeItem(
+        "user"
+      );
 
-    localStorage.removeItem(
-      "token"
-    );
+      localStorage.removeItem(
+        "token"
+      );
 
-    // ADMIN
+      // ADMIN
 
-    localStorage.removeItem(
-      "admin"
-    );
+      localStorage.removeItem(
+        "admin"
+      );
 
-    localStorage.removeItem(
-      "adminToken"
-    );
+      localStorage.removeItem(
+        "adminToken"
+      );
 
-    navigate("/");
+      // navigate("/");
+      window.location.href = "/";
 
-  };
+    };
 
 
   return (
@@ -92,11 +93,11 @@ function Navbar() {
 
         </Link>
 
-        <Link to="/events">
-
-          Events
-
-        </Link>
+        {user && (
+          <Link to="/events">
+            Events
+          </Link>
+        )}
 
         <Link to="/about">
 
@@ -121,21 +122,21 @@ function Navbar() {
 
         {
 
-        user && !adminToken && (
+          user && !adminToken && (
 
-        <p
-        className=
-        "welcomeText"
-        >
+            <p
+              className=
+              "welcomeText"
+            >
 
-          Welcome,
-          {
-            user.username
-          }
+              Welcome, 
+              {
+                user.username
+              }
 
-        </p>
+            </p>
 
-        )
+          )
 
         }
 
@@ -144,36 +145,36 @@ function Navbar() {
 
         {
 
-        adminToken && (
+          adminToken && (
 
-        <>
+            <>
 
-          <p
-          className=
-          "welcomeText"
-          >
+              <p
+                className=
+                "welcomeText"
+              >
 
-            Admin Panel 👑
+                Admin Panel
 
-          </p>
+              </p>
 
 
-          <Link
+              <Link
 
-          to="/admin/dashboard"
+                to="/admin/dashboard"
 
-          className=
-          "dashboardBtn"
+                className=
+                "dashboardBtn"
 
-          >
+              >
 
-            Dashboard
+                Dashboard
 
-          </Link>
+              </Link>
 
-        </>
+            </>
 
-        )
+          )
 
         }
 
@@ -182,86 +183,86 @@ function Navbar() {
 
         {
 
-        !user && !adminToken ?
+          !user && !adminToken ?
 
-        (
+            (
 
-        <div
-        className=
-        "authButtons"
-        >
+              <div
+                className=
+                "authButtons"
+              >
 
-          <Link
-          to="/login"
-          >
+                <Link
+                  to="/login"
+                >
 
-            <button
-            className=
-            "loginBtnNav"
-            >
+                  <button
+                    className=
+                    "loginBtnNav"
+                  >
 
-              Login
+                    Login
 
-            </button>
+                  </button>
 
-          </Link>
-
-
-          <Link
-          to="/register"
-          >
-
-            <button
-            className=
-            "registerBtnNav"
-            >
-
-              Register
-
-            </button>
-
-          </Link>
+                </Link>
 
 
-          <Link
-          to="/admin/login"
-          >
+                <Link
+                  to="/register"
+                >
 
-            <button
-            className=
-            "dashboardBtn"
-            >
+                  <button
+                    className=
+                    "registerBtnNav"
+                  >
 
-              Admin
+                    Register
 
-            </button>
+                  </button>
 
-          </Link>
+                </Link>
 
-        </div>
 
-        )
+                <Link
+                  to="/admin/login"
+                >
 
-        :
+                  <button
+                    className=
+                    "dashboardBtn"
+                  >
 
-        (
+                    Admin
 
-        <button
+                  </button>
 
-        onClick={
-          handleLogout
-        }
+                </Link>
 
-        className=
-        "logoutBtn"
+              </div>
 
-        >
+            )
 
-          Logout
+            :
 
-        </button>
+            (
 
-        )
+              <button
+
+                onClick={
+                  handleLogout
+                }
+
+                className=
+                "logoutBtn"
+
+              >
+
+                Logout
+
+              </button>
+
+            )
 
         }
 

@@ -19,13 +19,13 @@ function Footer() {
         </div>
 
         <div className="footerSection">
-            <h3>Quick Links</h3>
+          <h3>Quick Links</h3>
 
-                <a href="/">Home</a>
-                <a href="/events">Events</a>
-                <a href="/login">Login</a>
-                <a href="/register">Register</a>
-                <a href="/admin/login">Admin Login</a>
+          <a href="/">Home</a>
+          <a href="/events">Events</a>
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
+          <a href="/admin/login">Admin Login</a>
         </div>
 
         <div className="footerSection">
@@ -46,7 +46,15 @@ function Footer() {
 
           <h3>Contact</h3>
 
-          <p>eventify@gmail.com</p>
+          <p>
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=eventify023@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              eventify023@gmail.com
+            </a>
+          </p>
 
         </div>
 

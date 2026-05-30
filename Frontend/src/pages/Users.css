@@ -1,0 +1,108 @@
+.usersHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.addUserBtn {
+  background: #6c4cf1;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.userStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.statCard {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.statCard h3 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.userSearch {
+  margin-bottom: 20px;
+}
+
+.userSearch input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+}
+
+.usersTable {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.usersTable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.usersTable th,
+.usersTable td {
+  padding: 15px;
+  text-align: left;
+}
+
+.usersTable th {
+  background: #f4f4f4;
+}
+
+.usersTable tr {
+  border-bottom: 1px solid #eee;
+}
+
+.roleBadge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.roleBadge.admin {
+  background: #ffe4e6;
+}
+
+.roleBadge.user {
+  background: #dcfce7;
+}
+
+.userActions {
+  display: flex;
+  gap: 10px;
+}
+
+.editBtn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.deleteBtn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}

@@ -1627,6 +1627,28 @@ body {
   cursor: pointer;
 }
 
+/* CATEGORY SECTION */
+
+.eventCardTop {
+  padding: 18px 20px 0;
+}
+
+.eventCategory {
+  display: inline-block;
+  padding: 8px 16px;
+
+  background: rgba(124, 58, 237, 0.12);
+  color: #7c3aed;
+
+  border-radius: 30px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 /* EMPTY STATE */
 
 .emptyState {

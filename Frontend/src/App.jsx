@@ -33,6 +33,12 @@ import EventsPage from "./pages/EventsPage";
 
 import Registrations from "./pages/Registrations";
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
+import Users from "./pages/Users";
+
+import AddUser from "./pages/AddUser";
+
 function App() {
 
   return (
@@ -48,7 +54,11 @@ function App() {
 
         <Route
           path="/events"
-          element={<Events />}
+          element={
+            <ProtectedRoute>
+              <Events />
+            </ProtectedRoute>
+          }
         />
 
         <Route
@@ -104,6 +114,16 @@ function App() {
         <Route
           path="/admin/registrations"
           element={<Registrations />}
+        />
+
+        <Route
+          path="/admin/users"
+          element={<Users />}
+        />
+
+        <Route
+          path="/admin/add-user"
+          element={<AddUser />}
         />
 
       </Routes>
