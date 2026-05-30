@@ -25,7 +25,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 import AdminLogin from "./pages/admin/AdminLogin";
 
-// import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
 
@@ -76,14 +76,14 @@ function App() {
           element={<AdminLogin />} 
           />
 
-        {/* <Route
+        <Route
           path="/admin/dashboard"
           element={
             <AdminProtectedRoute>
               <AdminDashboard />
             </AdminProtectedRoute>
           }
-        /> */}
+        />
 
       </Routes>
 

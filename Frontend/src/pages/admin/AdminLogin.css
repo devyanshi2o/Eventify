@@ -93,3 +93,28 @@
 .adminLoginBtn:hover {
   transform: translateY(-2px);
 }
+
+.passwordWrapper {
+  position: relative;
+}
+
+.passwordWrapper input {
+  width: 100%;
+  padding-right: 55px;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #8a8a8a;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+}
+
+.eyeIcon:hover {
+  color: #7c3aed;
+}

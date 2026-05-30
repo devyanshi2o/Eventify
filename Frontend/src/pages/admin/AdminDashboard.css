@@ -1,0 +1,329 @@
+.dashboardContainer {
+  padding: 40px;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+/* HEADER */
+
+.dashboardTopBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 25px;
+  margin-bottom: 10px;
+
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dashboardTopBar h1 {
+  font-size: 46px;
+  font-weight: 800;
+  color: #334155;
+  margin: 0;
+}
+
+.adminProfile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.adminProfile img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+
+  border: 3px solid #7c3aed;
+
+  box-shadow:
+    0 4px 15px rgba(
+      124,
+      58,
+      237,
+      0.15
+    );
+}
+
+.adminProfile span {
+  font-size: 17px;
+  font-weight: 600;
+  color: #475569;
+}
+
+/* TITLE */
+
+.sectionTitle {
+  margin-top: 35px;
+  margin-bottom: 25px;
+
+  color: #475569;
+
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* STATS */
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.statCard {
+  background: #ffffff;
+
+  border-radius: 22px;
+
+  padding: 28px;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  border: 1px solid #eef2f7;
+
+  transition: all 0.3s ease;
+
+  box-shadow:
+    0 6px 20px rgba(
+      15,
+      23,
+      42,
+      0.04
+    );
+}
+
+.statCard:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 12px 30px rgba(
+      15,
+      23,
+      42,
+      0.08
+    );
+}
+
+.statIcon {
+  width: 72px;
+  height: 72px;
+
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+}
+
+.purple {
+  background: #f3e8ff;
+  color: #7c3aed;
+}
+
+.blue {
+  background: #e0f2fe;
+  color: #2563eb;
+}
+
+.green {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.orange {
+  background: #ffedd5;
+  color: #ea580c;
+}
+
+.statCard p {
+  color: #64748b;
+  margin: 0 0 6px;
+  font-size: 15px;
+}
+
+.statCard h3 {
+  font-size: 36px;
+  font-weight: 800;
+
+  color: #334155;
+
+  margin: 0;
+}
+
+.statCard span {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* EVENTS SECTION */
+
+.eventsSection {
+  background: white;
+
+  margin-top: 40px;
+
+  border-radius: 22px;
+
+  padding: 30px;
+
+  border: 1px solid #eef2f7;
+
+  box-shadow:
+    0 6px 20px rgba(
+      15,
+      23,
+      42,
+      0.04
+    );
+}
+
+.eventsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.eventsHeader h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #475569;
+  margin: 0;
+}
+
+.eventsHeader button {
+  border: none;
+
+  background: #6d28d9;
+
+  color: white;
+
+  padding: 12px 24px;
+
+  border-radius: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.eventsHeader button:hover {
+  background: #5b21b6;
+}
+
+/* TABLE */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f8fafc;
+}
+
+th {
+  text-align: left;
+
+  padding: 18px 20px;
+
+  color: #64748b;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+td {
+  padding: 22px 20px;
+
+  color: #475569;
+
+  border-top: 1px solid #e2e8f0;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* ACTION BUTTONS */
+
+.editBtn,
+.deleteBtn {
+  border: none;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 10px;
+
+  margin-right: 10px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.editBtn {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.editBtn:hover {
+  background: #ddd6fe;
+}
+
+.deleteBtn {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.deleteBtn:hover {
+  background: #fecaca;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1200px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+
+  .dashboardContainer {
+    padding: 20px;
+  }
+
+  .dashboardTopBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .dashboardTopBar h1 {
+    font-size: 34px;
+  }
+
+  .sectionTitle {
+    font-size: 26px;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .eventsSection {
+    overflow-x: auto;
+  }
+}
