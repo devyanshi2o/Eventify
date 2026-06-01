@@ -497,26 +497,25 @@ body {
   }
 }
 
-/* LOGIN + REGISTER */
+/* LOGIN */
 .authContainer {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 100px;
+  padding-top: 60px;
   background:
     linear-gradient(135deg,
       #f5f3ff,
       #ede9fe);
 }
 
-
 /* FORM BOX */
 
 .formBox {
   width: 420px;
   background: white;
-  padding: 45px 40px;
+  padding: 40px;
   border-radius: 24px;
   box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.08);
@@ -989,17 +988,12 @@ body {
 
 .contactContainer {
 
-  min-height: 100vh;
-
+  /* min-height: 90vh; */
   display: flex;
-
   justify-content: center;
-
   align-items: center;
-
-  padding-top: 120px;
-
-  padding-bottom: 60px;
+  padding-top: 100px;
+  /* padding-bottom: 30px; */
 
   background:
     linear-gradient(135deg,
@@ -1007,27 +1001,20 @@ body {
       #ede9fe);
 }
 
-
 /* CARD */
 
 .contactCard {
 
   width: 500px;
-
   background: white;
-
-  padding: 45px;
-
+  padding: 35px;
   border-radius: 24px;
-
   box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.08);
 
   display: flex;
-
   flex-direction: column;
-
-  gap: 20px;
+  /* gap: 10px; */
 }
 
 /* TITLE */
@@ -1061,12 +1048,9 @@ body {
 /* FORM */
 
 .contactForm {
-
   display: flex;
-
   flex-direction: column;
-
-  gap: 20px;
+  gap: 6px;
 }
 
 
@@ -1078,15 +1062,13 @@ body {
 
   flex-direction: column;
 
-  gap: 10px;
+  gap: 8px;
 }
 
 .inputGroup label {
 
   font-size: 14px;
-
   font-weight: 600;
-
   color: #18134b;
 }
 
@@ -1097,19 +1079,12 @@ body {
 .contactForm textarea {
 
   width: 100%;
-
   padding: 14px;
-
   border: 1px solid #ddd;
-
   border-radius: 12px;
-
   font-size: 15px;
-
   outline: none;
-
   transition: 0.3s ease;
-
   resize: none;
 }
 
@@ -2019,16 +1994,11 @@ body {
 .registerCard {
   width: 100%;
   max-width: 1300px;
-
   background: white;
-
   border-radius: 32px;
-
   display: grid;
   grid-template-columns: 420px 1fr;
-
   overflow: hidden;
-
   box-shadow:
     0 25px 60px rgba(124,58,237,0.12);
 }
