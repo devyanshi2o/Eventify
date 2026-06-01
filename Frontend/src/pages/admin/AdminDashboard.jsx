@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
-    FaCalendarAlt,
-    FaUserPlus,
-    FaUsers,
-    FaShieldAlt,
-    FaPen,
-    FaTrash,
+  FaCalendarAlt,
+  FaUserPlus,
+  FaUsers,
+  FaShieldAlt,
+  FaPen,
+  FaTrash,
 } from "react-icons/fa";
 
 import API from "../../api/axios";
@@ -17,245 +17,252 @@ import adminImage from "../../assets/adminImage.png";
 import "./AdminDashboard.css";
 
 function AdminDashboard() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [stats, setStats] = useState([
-        {
-            title: "Total Events",
-            value: 0,
-            icon: <FaCalendarAlt />,
-            color: "purple",
-        },
-        {
-            title: "Total Registrations",
-            value: 0,
-            icon: <FaUserPlus />,
-            color: "blue",
-        },
-        {
-            title: "Total Users",
-            value: 0,
-            icon: <FaUsers />,
-            color: "green",
-        },
-        {
-            title: "Admins",
-            value: 0,
-            icon: <FaShieldAlt />,
-            color: "orange",
-        },
+  const [stats, setStats] = useState([]);
+  const [recentEvents, setRecentEvents] = useState([]);
+
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+ const fetchDashboardData = async () => {
+  try {
+    const [eventsRes, usersRes] = await Promise.all([
+      API.get("/events"),
+      API.get("/users"),
     ]);
 
-    const [recentEvents, setRecentEvents] = useState([]);
+    const events = eventsRes.data || [];
+    const users = usersRes.data.data || [];
 
-    useEffect(() => {
-        fetchDashboardData();
-    }, []);
+    // USERS COUNT
 
-    const fetchDashboardData = async () => {
-        try {
-            const eventsRes = await API.get("/events");
+    const totalUsers = users.filter(
+      (user) => user.role === "user"
+    ).length;
 
-            const events = eventsRes.data || [];
+    const totalAdmins = users.filter(
+      (user) => user.role === "admin"
+    ).length;
 
-            const totalRegistrations = events.reduce(
-                (sum, event) =>
-                    sum + (event.registrations?.length || 0),
-                0
-            );
+    // REGISTRATIONS COUNT
 
-            setStats([
-                {
-                    title: "Total Events",
-                    value: events.length,
-                    icon: <FaCalendarAlt />,
-                    color: "purple",
-                },
-                {
-                    title: "Total Registrations",
-                    value: totalRegistrations,
-                    icon: <FaUserPlus />,
-                    color: "blue",
-                },
-                {
-                    title: "Total Users",
-                    value: totalRegistrations,
-                    icon: <FaUsers />,
-                    color: "green",
-                },
-                {
-                    title: "Admins",
-                    value: 1,
-                    icon: <FaShieldAlt />,
-                    color: "orange",
-                },
-            ]);
+    const totalRegistrations = events.reduce(
+      (total, event) =>
+        total + (event.registrations?.length || 0),
+      0
+    );
 
-            setRecentEvents(events.slice(0, 5));
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // RECENT EVENTS
 
-    const handleDelete = async (id) => {
-        const confirmDelete = window.confirm(
-            "Are you sure you want to delete this event?"
-        );
+    const recent = [...events]
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt || b.date) -
+          new Date(a.createdAt || a.date)
+      )
+      .slice(0, 5);
 
-        if (!confirmDelete) return;
+    // DASHBOARD STATS
 
-        try {
-            await API.delete(`/events/${id}`);
+    setStats([
+      {
+        title: "Total Events",
+        value: events.length,
+        icon: <FaCalendarAlt />,
+        color: "purple",
+      },
+      {
+        title: "Total Registrations",
+        value: totalRegistrations,
+        icon: <FaUserPlus />,
+        color: "blue",
+      },
+      {
+        title: "Total Users",
+        value: totalUsers,
+        icon: <FaUsers />,
+        color: "green",
+      },
+      {
+        title: "Admins",
+        value: totalAdmins,
+        icon: <FaShieldAlt />,
+        color: "orange",
+      },
+    ]);
 
-            fetchDashboardData();
-        } catch (error) {
-            console.log(error);
-            alert("Failed to delete event");
-        }
-    };
+    setRecentEvents(recent);
 
- return (
-  <AdminLayout>
-    <div className="dashboardContainer">
+    console.log("Users:", users);
+    console.log("Total Users:", totalUsers);
+    console.log("Total Admins:", totalAdmins);
 
-      {/* HEADER */}
+  } catch (error) {
+    console.error("Dashboard Error:", error);
+  }
+};
 
-      <div className="dashboardTopBar">
-        <h1>Admin Dashboard</h1>
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this event?"
+    );
 
-        <div className="adminInfo">
-          <div className="adminProfile">
-            <img
-              src={adminImage}
-              alt="Admin"
-            />
-            <span>Admin</span>
+    if (!confirmDelete) return;
+
+    try {
+      await API.delete(`/events/${id}`);
+      fetchDashboardData();
+    } catch (error) {
+      console.error(error);
+      alert("Failed to delete event");
+    }
+  };
+
+  return (
+    <AdminLayout>
+      <div className="dashboardContainer">
+
+        {/* HEADER */}
+
+        <div className="dashboardTopBar">
+          <h1>Admin Dashboard</h1>
+
+          <div className="adminInfo">
+            <div className="adminProfile">
+              <img
+                src={adminImage}
+                alt="Admin"
+              />
+              <span>Admin</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* OVERVIEW */}
+        {/* OVERVIEW */}
 
-      <h2 className="sectionTitle">
-        Dashboard Overview
-      </h2>
+        <h2 className="sectionTitle">
+          Dashboard Overview
+        </h2>
 
-      <div className="statsGrid">
-        {stats.map((item, index) => (
-          <div className="statCard" key={index}>
+        <div className="statsGrid">
+          {stats.map((item, index) => (
             <div
-              className={`statIcon ${item.color}`}
+              className="statCard"
+              key={index}
             >
-              {item.icon}
+              <div
+                className={`statIcon ${item.color}`}
+              >
+                {item.icon}
+              </div>
+
+              <div className="statContent">
+                <p>{item.title}</p>
+                <h3>{item.value}</h3>
+                {/* <span>All Time</span> */}
+              </div>
             </div>
-
-            <div>
-              <p>{item.title}</p>
-              <h3>{item.value}</h3>
-              <span>All Time</span>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* RECENT EVENTS */}
-
-      <div className="eventsSection">
-
-        <div className="eventsHeader">
-          <h2>Recent Events</h2>
-
-          <button
-            onClick={() =>
-              navigate("/admin/events")
-            }
-          >
-            View All
-          </button>
+          ))}
         </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Event Name</th>
-              <th>Date</th>
-              <th>Registrations</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+        {/* RECENT EVENTS */}
 
-          <tbody>
+        <div className="eventsSection">
+          <div className="eventsHeader">
+            <h2>Recent Events</h2>
 
-            {recentEvents.length > 0 ? (
+            <button
+              className="viewAllBtn"
+              onClick={() =>
+                navigate("/admin/events")
+              }
+            >
+              View All
+            </button>
+          </div>
 
-              recentEvents.map((event) => (
-                <tr key={event._id}>
-                  <td>
-                    {event.title || event.name}
-                  </td>
-
-                  <td>
-                    {event.date
-                      ? new Date(
-                          event.date
-                        ).toLocaleDateString()
-                      : "N/A"}
-                  </td>
-
-                  <td>
-                    {event.registrations?.length || 0}
-                  </td>
-
-                  <td>
-
-                    <button
-                      className="editBtn"
-                      onClick={() =>
-                        navigate(
-                          `/admin/events/edit/${event._id}`
-                        )
-                      }
-                    >
-                      <FaPen />
-                    </button>
-
-                    <button
-                      className="deleteBtn"
-                      onClick={() =>
-                        handleDelete(event._id)
-                      }
-                    >
-                      <FaTrash />
-                    </button>
-
-                  </td>
+          <div className="tableContainer">
+            <table>
+              <thead>
+                <tr>
+                  <th>Event Name</th>
+                  <th>Date</th>
+                  <th>Registrations</th>
+                  <th>Actions</th>
                 </tr>
-              ))
+              </thead>
 
-            ) : (
+              <tbody>
+                {recentEvents.length > 0 ? (
+                  recentEvents.map((event) => (
+                    <tr key={event._id}>
+                      <td>
+                        {event.title ||
+                          event.name}
+                      </td>
 
-              <tr>
-                <td
-                  colSpan="4"
-                  style={{
-                    textAlign: "center",
-                    padding: "30px",
-                  }}
-                >
-                  No events found
-                </td>
-              </tr>
+                      <td>
+                        {event.date
+                          ? new Date(
+                            event.date
+                          ).toLocaleDateString()
+                          : "N/A"}
+                      </td>
 
-            )}
+                      <td>
+                        {event.registrations
+                          ?.length || 0}
+                      </td>
 
-          </tbody>
-        </table>
+                      <td className="actionButtons">
+                        <button
+                          className="editBtn"
+                          onClick={() =>
+                            navigate(
+                              `/admin/events/edit/${event._id}`
+                            )
+                          }
+                        >
+                          <FaPen />
+                        </button>
+
+                        <button
+                          className="deleteBtn"
+                          onClick={() =>
+                            handleDelete(
+                              event._id
+                            )
+                          }
+                        >
+                          <FaTrash />
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan="4"
+                      style={{
+                        textAlign: "center",
+                        padding: "30px",
+                      }}
+                    >
+                      No events found
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
       </div>
-
-    </div>
-  </AdminLayout>
-);
+    </AdminLayout>
+  );
 }
 
 export default AdminDashboard;

@@ -39,12 +39,10 @@
   border: 3px solid #7c3aed;
 
   box-shadow:
-    0 4px 15px rgba(
-      124,
+    0 4px 15px rgba(124,
       58,
       237,
-      0.15
-    );
+      0.15);
 }
 
 .adminProfile span {
@@ -69,56 +67,42 @@
 
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 22px;
+  width: 100%;
 }
 
 .statCard {
   background: #ffffff;
-
   border-radius: 22px;
-
   padding: 28px;
-
   display: flex;
   align-items: center;
   gap: 20px;
-
   border: 1px solid #eef2f7;
-
   transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
 
-  box-shadow:
-    0 6px 20px rgba(
-      15,
-      23,
-      42,
-      0.04
-    );
+  min-width: 0;
 }
 
 .statCard:hover {
   transform: translateY(-4px);
 
   box-shadow:
-    0 12px 30px rgba(
-      15,
+    0 12px 30px rgba(15,
       23,
       42,
-      0.08
-    );
+      0.08);
 }
 
 .statIcon {
   width: 72px;
   height: 72px;
-
   border-radius: 18px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-size: 28px;
 }
 
@@ -151,9 +135,7 @@
 .statCard h3 {
   font-size: 36px;
   font-weight: 800;
-
-  color: #334155;
-
+  color: #64748b;
   margin: 0;
 }
 
@@ -176,12 +158,10 @@
   border: 1px solid #eef2f7;
 
   box-shadow:
-    0 6px 20px rgba(
-      15,
+    0 6px 20px rgba(15,
       23,
       42,
-      0.04
-    );
+      0.04);
 }
 
 .eventsHeader {
@@ -302,7 +282,14 @@ tbody tr:hover {
 @media (max-width: 768px) {
 
   .dashboardContainer {
-    padding: 20px;
+    padding: 40px;
+    background: #f8fafc;
+    min-height: 100vh;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+
   }
 
   .dashboardTopBar {
