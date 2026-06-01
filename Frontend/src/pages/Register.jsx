@@ -2,65 +2,98 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import API from "../api/axios";
+import "../App.css";
+import registerImg from "../assets/eventHero.png";
 
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-
-import logo from "../assets/logo3.png";
+import {
+  FaEye,
+  FaEyeSlash
+} from "react-icons/fa";
 
 function Register() {
-  // FORM DATA
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
 
-  // PASSWORD TOGGLE
-  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] =
+    useState({
+      username: "",
+      email: "",
+      password: "",
+      enrollmentNo: "",
+      collegeName: "",
+      branch: "",
+      semester: "",
+    });
 
-  // SUCCESS POPUP
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPassword, setShowPassword] =
+    useState(false);
+
+  const [showPopup, setShowPopup] =
+    useState(false);
 
   // HANDLE INPUT
+
   const handleChange = (e) => {
+
     setFormData({
+
       ...formData,
-      [e.target.name]: e.target.value,
+
+      [e.target.name]:
+        e.target.value,
     });
   };
 
-  // HANDLE REGISTER
+  // REGISTER
+
   const handleRegister = async (e) => {
+
     e.preventDefault();
 
     try {
-      const response = await API.post("/users/register", formData);
 
-      console.log(response.data);
+      const response =
+        await API.post(
+          "/users/register",
+          formData
+        );
 
-      // SAVE TOKEN
-      localStorage.setItem("token", response.data.data.token);
+      localStorage.setItem(
+        "token",
+        response.data.data.token
+      );
 
-      localStorage.setItem("user", JSON.stringify(response.data.data));
+      localStorage.setItem(
+        "user",
+        JSON.stringify(
+          response.data.data
+        )
+      );
 
-      // SHOW POPUP
       setShowPopup(true);
 
-      // CLEAR FORM
       setFormData({
         username: "",
         email: "",
         password: "",
+        enrollmentNo: "",
+        collegeName: "",
+        branch: "",
+        semester: "",
       });
 
-      // REDIRECT
       setTimeout(() => {
+
         window.location.href = "/";
+
       }, 1500);
+
     } catch (error) {
+
       console.log(error);
 
-      alert(error.response?.data?.message || "Registration Failed");
+      alert(
+        error.response?.data?.message ||
+        "Registration Failed"
+      );
     }
   };
 
@@ -68,85 +101,199 @@ function Register() {
     <>
       <Navbar />
 
-      <div className="authContainer">
-        <div className="formBox">
-          {/* TITLE */}
-          <h1 className="authTitle">Create Account</h1>
+      <div className="registerPage">
 
-          <p className="formText">
-            Join Eventify and explore exciting events, workshops and festivals.
-          </p>
+        <div className="registerCard">
 
-          {/* FORM */}
-          <form onSubmit={handleRegister}>
-            {/* USERNAME */}
-            <div className="inputGroup">
-              <label>Full Name</label>
+          {/* LEFT SIDE */}
 
-              <input
-                type="text"
-                name="username"
-                placeholder="Enter your full name"
-                value={formData.username}
-                onChange={handleChange}
-                required
-              />
-            </div>
+          <div className="registerLeft">
+            <img
+              src={registerImg}
+              alt="Event Illustration"
+              className="registerIllustration"
+            />
+          </div>
+          {/* RIGHT SIDE */}
 
-            {/* EMAIL */}
-            <div className="inputGroup">
-              <label>Email</label>
+          <div className="registerRight">
 
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
+            <h1 className="registerTitle">
+              Create Account
+            </h1>
 
-            {/* PASSWORD */}
-            <div className="inputGroup">
-              <label>Password</label>
+            <p className="registerSubtitle">
+              Start your Eventify journey today
+            </p>
 
-              <div className="passwordBox">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  placeholder="Create password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
+            <form onSubmit={handleRegister}>
 
-                <span
-                  className="eyeIcon"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </span>
+              <div className="registerGrid">
+
+                <div className="registerInputGroup">
+                  <label>Full Name</label>
+                  <input
+                    className="registerInput"
+                    type="text"
+                    name="username"
+                    placeholder="Enter your name"
+                    value={formData.username}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="registerInputGroup">
+                  <label>Email</label>
+                  <input
+                    className="registerInput"
+                    type="email"
+                    name="email"
+                    placeholder="Enter email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="registerInputGroup">
+                  <label>Enrollment No</label>
+                  <input
+                    className="registerInput"
+                    type="text"
+                    name="enrollmentNo"
+                    placeholder="Enrollment Number"
+                    value={formData.enrollmentNo}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="registerInputGroup">
+                  <label>College Name</label>
+                  <input
+                    className="registerInput"
+                    type="text"
+                    name="collegeName"
+                    placeholder="College Name"
+                    value={formData.collegeName}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="registerInputGroup">
+                  <label>Branch</label>
+                  <input
+                    className="registerInput"
+                    type="text"
+                    name="branch"
+                    placeholder="Branch"
+                    value={formData.branch}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="registerInputGroup">
+                  <label>Semester</label>
+
+                  <select
+                    className="registerSelect"
+                    name="semester"
+                    value={formData.semester}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">
+                      Select Semester
+                    </option>
+
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map(
+                      (sem) => (
+                        <option
+                          key={sem}
+                          value={sem}
+                        >
+                          Semester {sem}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </div>
+
               </div>
-            </div>
 
-            {/* BUTTON */}
-            <button className="authBtn" type="submit">
-              Register
-            </button>
-          </form>
+              {/* PASSWORD */}
 
-          {/* BOTTOM */}
-          <p className="bottomText">
-            Already have an account?
-            <Link to="/login"> Login</Link>
-          </p>
+              <div className="registerPassword">
+
+                <label>Password</label>
+
+                <div className="registerPasswordBox">
+
+                  <input
+                    className="registerInput"
+                    type={
+                      showPassword
+                        ? "text"
+                        : "password"
+                    }
+                    name="password"
+                    placeholder="Create password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
+
+                  <span
+                    className="registerEye"
+                    onClick={() =>
+                      setShowPassword(
+                        !showPassword
+                      )
+                    }
+                  >
+                    {
+                      showPassword
+                        ? <FaEyeSlash />
+                        : <FaEye />
+                    }
+                  </span>
+
+                </div>
+
+              </div>
+
+              <button
+                className="registerSubmit"
+                type="submit"
+              >
+                Create Account
+              </button>
+
+            </form>
+
+            <p className="registerBottomText">
+
+              Already have an account?
+
+              <Link to="/login">
+                Login
+              </Link>
+
+            </p>
+
+          </div>
+
         </div>
+
       </div>
 
-      {/* SUCCESS POPUP */}
       {showPopup && (
-        <div className="success-popup">Registration Successful ✅</div>
+        <div className="success-popup">
+          Registration Successful ✅
+        </div>
       )}
     </>
   );

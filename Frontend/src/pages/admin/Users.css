@@ -1,0 +1,169 @@
+.usersPage {
+  padding: 40px;
+}
+
+.pageHeader {
+  margin-bottom: 25px;
+}
+
+.pageHeader h1 {
+  font-size: 45px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.pageHeader p {
+  color: #6b7280;
+}
+
+.statsGrid {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.statCard {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.05);
+}
+
+.statCard svg {
+  color: #7c3aed;
+  font-size: 35px;
+}
+
+.searchContainer {
+  background: white;
+  border-radius: 15px;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.searchContainer input {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.tableContainer {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,.05);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f8fafc;
+}
+
+th,
+td {
+  padding: 18px;
+  text-align: left;
+}
+
+tbody tr {
+  border-top: 1px solid #edf2f7;
+}
+
+.activeBadge {
+  background: #dcfce7;
+  color: #15803d;
+  padding: 6px 12px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.actionBtn,
+.deleteBtn {
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.actionBtn {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.deleteBtn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.userModal {
+  width: 500px;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+}
+
+.userModal h2 {
+  margin-bottom: 20px;
+  color: #0f172a;
+}
+
+.userInfo p {
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.closeBtn {
+  margin-top: 20px;
+
+  background: linear-gradient(
+    135deg,
+    #7c3aed,
+    #9333ea
+  );
+
+  color: white;
+  border: none;
+
+  padding: 12px 20px;
+  border-radius: 10px;
+
+  cursor: pointer;
+}

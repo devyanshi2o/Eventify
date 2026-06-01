@@ -1997,3 +1997,249 @@ body {
     font-size: 32px;
   }
 }
+
+/* REGISTER PAGE */
+
+.registerPage {
+  min-height: 100vh;
+  padding: 120px 30px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(
+    135deg,
+    #f5f3ff,
+    #ede9fe
+  );
+}
+
+/* MAIN CARD */
+
+.registerCard {
+  width: 100%;
+  max-width: 1300px;
+
+  background: white;
+
+  border-radius: 32px;
+
+  display: grid;
+  grid-template-columns: 420px 1fr;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 25px 60px rgba(124,58,237,0.12);
+}
+
+/* LEFT SIDE */
+
+.registerLeft {
+  background: linear-gradient(
+    135deg,
+    #f8f5ff,
+    #efe8ff
+  );
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+}
+
+.registerIllustration {
+  width: 100%;
+  max-width: 520px;
+  object-fit: contain;
+}
+
+/* RIGHT SIDE */
+
+.registerRight {
+  padding: 60px;
+}
+
+.registerTitle {
+  font-size: 45px;
+  /* font-weight: 800; */
+  color: #18134b;
+  margin-bottom: 10px;
+}
+
+.registerSubtitle {
+  color: #64748b;
+  font-size: 17px;
+  margin-bottom: 40px;
+}
+
+/* GRID */
+
+.registerGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+/* INPUT GROUP */
+
+.registerInputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.registerInputGroup label {
+  color: #18134b;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* INPUTS */
+
+.registerInput,
+.registerSelect {
+  width: 100%;
+  height: 56px;
+
+  border: 1px solid #dbe2ea;
+
+  border-radius: 14px;
+
+  padding: 0 18px;
+
+  font-size: 15px;
+
+  background: #fafafa;
+
+  transition: 0.3s ease;
+}
+
+.registerInput:focus,
+.registerSelect:focus {
+  outline: none;
+
+  border-color: #7c3aed;
+
+  background: white;
+
+  box-shadow:
+    0 0 0 4px rgba(124,58,237,0.12);
+}
+
+/* PASSWORD */
+
+.registerPassword {
+  margin-top: 25px;
+}
+
+.registerPassword label {
+  display: block;
+  margin-bottom: 10px;
+
+  color: #18134b;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.registerPasswordBox {
+  position: relative;
+}
+
+.registerPasswordBox .registerInput {
+  padding-right: 55px;
+}
+
+.registerEye {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+
+  transform: translateY(-50%);
+
+  cursor: pointer;
+
+  color: #94a3b8;
+  font-size: 18px;
+}
+
+/* BUTTON */
+
+.registerSubmit {
+  width: 100%;
+  height: 60px;
+
+  margin-top: 35px;
+
+  border: none;
+  border-radius: 16px;
+
+  background: linear-gradient(
+    135deg,
+    #7c3aed,
+    #9333ea
+  );
+
+  color: white;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+  box-shadow:
+    0 15px 35px rgba(124,58,237,0.3);
+}
+
+.registerSubmit:hover {
+  transform: translateY(-3px);
+}
+
+/* LOGIN TEXT */
+
+.registerBottomText {
+  margin-top: 25px;
+  text-align: center;
+
+  color: #64748b;
+}
+
+.registerBottomText a {
+  color: #7c3aed;
+  text-decoration: none;
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+/* MOBILE */
+
+@media (max-width: 1000px) {
+
+  .registerCard {
+    grid-template-columns: 1fr;
+  }
+
+  .registerLeft {
+    display: none;
+  }
+
+  .registerRight {
+    padding: 40px 25px;
+  }
+
+  .registerGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .registerTitle {
+    font-size: 38px;
+    text-align: center;
+  }
+
+  .registerSubtitle {
+    text-align: center;
+  }
+}

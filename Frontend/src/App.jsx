@@ -29,6 +29,13 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
 
+import EventsPage from "./pages/admin/EventsPage";
+
+import CreateEvent from "./pages/admin/CreateEvent";
+
+import Registrations from "./pages/admin/Registrations";
+
+import Users from "./pages/admin/Users";
 function App() {
 
   return (
@@ -73,8 +80,8 @@ function App() {
 
         <Route
           path="/admin/login"
-          element={<AdminLogin />} 
-          />
+          element={<AdminLogin />}
+        />
 
         <Route
           path="/admin/dashboard"
@@ -85,6 +92,41 @@ function App() {
           }
         />
 
+        <Route
+          path="/admin/events"
+          element={
+            <AdminProtectedRoute>
+              <EventsPage />
+            </AdminProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/create-event"
+          element={
+            <AdminProtectedRoute>
+              <CreateEvent />
+            </AdminProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/registrations"
+          element={
+            <AdminProtectedRoute>
+              <Registrations />
+            </AdminProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/users"
+          element={
+            <AdminProtectedRoute>
+              <Users />
+            </AdminProtectedRoute>
+          }
+        />
       </Routes>
 
     </BrowserRouter>
